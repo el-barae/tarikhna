@@ -1,0 +1,3225 @@
+{
+  "metadata": {
+    "title": "Atlas de l’histoire islamique · DEMO DATA",
+    "version": "1.0.0",
+    "lastUpdated": "2026-09-29",
+    "language": "fr",
+    "demo": true,
+    "description": {
+      "fr": "DEMO DATA — Jeu pédagogique illustratif, sans validation scientifique. Les frontières, routes, positions de certains événements et intervalles sont simplifiés. Ils ne représentent ni une souveraineté exacte ni les frontières actuelles. Les notices résument des repères historiques et doivent être vérifiées dans les sources avant publication. Les dates sont exprimées dans le calendrier grégorien, avec des bornes inclusives. Pour les villes anciennes, activeFrom = 610 indique le début de couverture du jeu, pas leur fondation. Les capitales sont des repères principaux et peuvent être anachroniques dans certains instantanés.",
+      "en": "DEMO DATA — An illustrative educational dataset without scholarly validation. Boundaries, routes, some event positions and time intervals are simplified. They represent neither exact sovereignty nor present-day borders. Entries summarize historical milestones and require source verification before publication. Dates use Gregorian years with inclusive bounds. For ancient cities, activeFrom = 610 marks the dataset coverage start, not their foundation. Capitals indicate principal centres and may be anachronistic in some snapshots.",
+      "ar": "بيانات تجريبية — مجموعة تعليمية توضيحية دون تحقق علمي. الحدود والطرق وبعض مواقع الأحداث والفترات مبسطة، ولا تمثل سيادة دقيقة أو الحدود الحالية. تلخص المواد محطات تاريخية وتتطلب مراجعة المصادر قبل النشر. السنوات ميلادية وحدود الفترات شاملة. بالنسبة إلى المدن القديمة، يشير activeFrom = 610 إلى بداية تغطية المجموعة وليس إلى تأسيس المدينة. تشير العواصم إلى المراكز الرئيسية وقد لا تتوافق زمنياً مع بعض اللقطات."
+    }
+  },
+  "periods": [
+    {
+      "id": "period-origins",
+      "name": {
+        "fr": "Les premiers temps",
+        "en": "The early period",
+        "ar": "البدايات"
+      },
+      "startYear": 610,
+      "endYear": 660,
+      "color": "#A59469",
+      "description": {
+        "fr": "Les débuts de l’islam et les premiers califats. Données DEMO : notice indicative à vérifier.",
+        "en": "The origins of Islam and the first caliphates. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "بدايات الإسلام والخلافات الأولى. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      }
+    },
+    {
+      "id": "period-umayyad",
+      "name": {
+        "fr": "L’époque omeyyade",
+        "en": "The Umayyad era",
+        "ar": "العصر الأموي"
+      },
+      "startYear": 661,
+      "endYear": 749,
+      "color": "#8C9A6C",
+      "description": {
+        "fr": "Un centre politique à Damas et de vastes transformations. Données DEMO : notice indicative à vérifier.",
+        "en": "A political centre in Damascus and far-reaching transformations. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مركز سياسي في دمشق وتحولات واسعة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      }
+    },
+    {
+      "id": "period-abbasid",
+      "name": {
+        "fr": "L’époque abbasside",
+        "en": "The Abbasid era",
+        "ar": "العصر العباسي"
+      },
+      "startYear": 750,
+      "endYear": 1258,
+      "color": "#5B8279",
+      "description": {
+        "fr": "Des centres politiques et savants multiples, de Cordoue à Bagdad. Données DEMO : notice indicative à vérifier.",
+        "en": "Multiple political and scholarly centres, from Córdoba to Baghdad. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مراكز سياسية وعلمية متعددة من قرطبة إلى بغداد. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      }
+    },
+    {
+      "id": "period-sultanates",
+      "name": {
+        "fr": "Le temps des sultanats",
+        "en": "The age of sultanates",
+        "ar": "عصر السلطنات"
+      },
+      "startYear": 1259,
+      "endYear": 1516,
+      "color": "#AB8766",
+      "description": {
+        "fr": "Des dynasties régionales et des réseaux d’échanges renouvelés. Données DEMO : notice indicative à vérifier.",
+        "en": "Regional dynasties and changing networks of exchange. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "دول إقليمية وشبكات تبادل متجددة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      }
+    },
+    {
+      "id": "period-ottoman",
+      "name": {
+        "fr": "L’époque ottomane",
+        "en": "The Ottoman era",
+        "ar": "العصر العثماني"
+      },
+      "startYear": 1517,
+      "endYear": 1924,
+      "color": "#7D849E",
+      "description": {
+        "fr": "Une période représentée ici par quelques jalons ottomans. Données DEMO : notice indicative à vérifier.",
+        "en": "A period represented here through selected Ottoman milestones. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "فترة ممثلة هنا ببعض المحطات العثمانية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      }
+    }
+  ],
+  "states": [
+    {
+      "id": "medina-polity",
+      "name": {
+        "fr": "Communauté de Médine",
+        "en": "Community of Medina",
+        "ar": "مجتمع المدينة"
+      },
+      "type": "state",
+      "startYear": 622,
+      "endYear": 631,
+      "capital": "medina",
+      "color": "#A89769",
+      "territories": [
+        {
+          "startYear": 622,
+          "endYear": 631,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  37,
+                  28
+                ],
+                [
+                  42,
+                  28
+                ],
+                [
+                  46,
+                  24
+                ],
+                [
+                  45,
+                  18
+                ],
+                [
+                  41,
+                  16
+                ],
+                [
+                  38,
+                  22
+                ],
+                [
+                  37,
+                  28
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "La communauté de Médine forme un nouveau centre politique. Le polygone est purement illustratif. Données DEMO : notice indicative à vérifier.",
+        "en": "The community of Medina forms a new political centre. The polygon is purely illustrative. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "شكّل مجتمع المدينة مركزاً سياسياً جديداً. المضلع توضيحي فقط. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "rashidun-caliphate",
+      "name": {
+        "fr": "Califat des premiers califes",
+        "en": "Rashidun Caliphate",
+        "ar": "الخلافة الراشدة"
+      },
+      "type": "caliphate",
+      "startYear": 632,
+      "endYear": 660,
+      "capital": "medina",
+      "color": "#9EAE7D",
+      "territories": [
+        {
+          "startYear": 632,
+          "endYear": 660,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  28,
+                  31
+                ],
+                [
+                  32,
+                  32
+                ],
+                [
+                  36,
+                  36
+                ],
+                [
+                  46,
+                  37
+                ],
+                [
+                  55,
+                  32
+                ],
+                [
+                  55,
+                  23
+                ],
+                [
+                  48,
+                  14
+                ],
+                [
+                  43,
+                  12
+                ],
+                [
+                  38,
+                  22
+                ],
+                [
+                  28,
+                  31
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Une période d’expansion rapide. Le contour montre un espace schématique, sans prétendre décrire une année précise. Données DEMO : notice indicative à vérifier.",
+        "en": "A period of rapid expansion. The outline is schematic and does not represent a specific year. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "فترة توسع سريع. الحدود تخطيطية ولا تمثل سنة محددة بدقة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "umayyad-caliphate",
+      "name": {
+        "fr": "Califat omeyyade",
+        "en": "Umayyad Caliphate",
+        "ar": "الخلافة الأموية"
+      },
+      "type": "caliphate",
+      "startYear": 661,
+      "endYear": 749,
+      "capital": "damascus",
+      "color": "#9FAA78",
+      "territories": [
+        {
+          "startYear": 661,
+          "endYear": 710,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  20,
+                  32
+                ],
+                [
+                  29,
+                  31
+                ],
+                [
+                  35,
+                  37
+                ],
+                [
+                  44,
+                  40
+                ],
+                [
+                  53,
+                  39
+                ],
+                [
+                  66,
+                  38
+                ],
+                [
+                  70,
+                  29
+                ],
+                [
+                  60,
+                  24
+                ],
+                [
+                  54,
+                  17
+                ],
+                [
+                  45,
+                  13
+                ],
+                [
+                  39,
+                  20
+                ],
+                [
+                  35,
+                  28
+                ],
+                [
+                  25,
+                  29
+                ],
+                [
+                  20,
+                  32
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        },
+        {
+          "startYear": 711,
+          "endYear": 749,
+          "certainty": "low",
+          "geometry": {
+            "type": "MultiPolygon",
+            "coordinates": [
+              [
+                [
+                  [
+                    20,
+                    32
+                  ],
+                  [
+                    29,
+                    31
+                  ],
+                  [
+                    35,
+                    37
+                  ],
+                  [
+                    44,
+                    40
+                  ],
+                  [
+                    53,
+                    39
+                  ],
+                  [
+                    66,
+                    38
+                  ],
+                  [
+                    70,
+                    29
+                  ],
+                  [
+                    60,
+                    24
+                  ],
+                  [
+                    54,
+                    17
+                  ],
+                  [
+                    45,
+                    13
+                  ],
+                  [
+                    39,
+                    20
+                  ],
+                  [
+                    35,
+                    28
+                  ],
+                  [
+                    25,
+                    29
+                  ],
+                  [
+                    20,
+                    32
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    -9,
+                    37
+                  ],
+                  [
+                    -9,
+                    42
+                  ],
+                  [
+                    -2,
+                    42
+                  ],
+                  [
+                    2,
+                    41
+                  ],
+                  [
+                    0,
+                    38
+                  ],
+                  [
+                    -5,
+                    36
+                  ],
+                  [
+                    -9,
+                    37
+                  ]
+                ]
+              ],
+              [
+                [
+                  [
+                    -9,
+                    31
+                  ],
+                  [
+                    -6,
+                    35
+                  ],
+                  [
+                    -2,
+                    35
+                  ],
+                  [
+                    5,
+                    37
+                  ],
+                  [
+                    12,
+                    36
+                  ],
+                  [
+                    21,
+                    32
+                  ],
+                  [
+                    20,
+                    29
+                  ],
+                  [
+                    11,
+                    30
+                  ],
+                  [
+                    1,
+                    29
+                  ],
+                  [
+                    -5,
+                    28
+                  ],
+                  [
+                    -9,
+                    31
+                  ]
+                ]
+              ]
+            ]
+          }
+        }
+      ],
+      "description": {
+        "fr": "Damas est le centre du califat omeyyade. Des géométries successives illustrent son expansion ; elles ne sont pas des frontières documentées. Données DEMO : notice indicative à vérifier.",
+        "en": "Damascus is the centre of the Umayyad caliphate. Successive geometries illustrate expansion; they are not documented boundaries. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "دمشق مركز الخلافة الأموية. توضح هندسات متعاقبة التوسع ولا تمثل حدوداً موثقة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-umayyad"
+      ]
+    },
+    {
+      "id": "abbasid-caliphate",
+      "name": {
+        "fr": "Califat abbasside",
+        "en": "Abbasid Caliphate",
+        "ar": "الخلافة العباسية"
+      },
+      "type": "caliphate",
+      "startYear": 750,
+      "endYear": 1258,
+      "capital": "baghdad",
+      "color": "#5B8279",
+      "territories": [
+        {
+          "startYear": 750,
+          "endYear": 860,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  23,
+                  32
+                ],
+                [
+                  29,
+                  31.5
+                ],
+                [
+                  34,
+                  31
+                ],
+                [
+                  36,
+                  36
+                ],
+                [
+                  42,
+                  38
+                ],
+                [
+                  49,
+                  38
+                ],
+                [
+                  54,
+                  40
+                ],
+                [
+                  61,
+                  38
+                ],
+                [
+                  67,
+                  36
+                ],
+                [
+                  70,
+                  30
+                ],
+                [
+                  64,
+                  25
+                ],
+                [
+                  57,
+                  23
+                ],
+                [
+                  53,
+                  17
+                ],
+                [
+                  47,
+                  13
+                ],
+                [
+                  43,
+                  13
+                ],
+                [
+                  40,
+                  19
+                ],
+                [
+                  38,
+                  25
+                ],
+                [
+                  35,
+                  28
+                ],
+                [
+                  28,
+                  29
+                ],
+                [
+                  23,
+                  30
+                ],
+                [
+                  23,
+                  32
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        },
+        {
+          "startYear": 861,
+          "endYear": 945,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  33,
+                  32
+                ],
+                [
+                  37,
+                  37
+                ],
+                [
+                  45,
+                  39
+                ],
+                [
+                  54,
+                  38
+                ],
+                [
+                  60,
+                  34
+                ],
+                [
+                  57,
+                  26
+                ],
+                [
+                  51,
+                  24
+                ],
+                [
+                  46,
+                  27
+                ],
+                [
+                  39,
+                  29
+                ],
+                [
+                  33,
+                  32
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        },
+        {
+          "startYear": 946,
+          "endYear": 1258,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  41,
+                  36
+                ],
+                [
+                  45,
+                  36
+                ],
+                [
+                  48,
+                  33
+                ],
+                [
+                  48,
+                  30
+                ],
+                [
+                  44,
+                  29
+                ],
+                [
+                  41,
+                  32
+                ],
+                [
+                  41,
+                  36
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Fondé en 750, le califat abbasside fait de Bagdad un centre politique et intellectuel. Son autorité réelle varie fortement selon les lieux et les époques. Tous les contours sont approximatifs. Données DEMO : notice indicative à vérifier.",
+        "en": "Established in 750, the Abbasid caliphate makes Baghdad a political and intellectual centre. Its effective authority varies greatly across places and periods. All boundaries are approximate. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "قامت الخلافة العباسية عام 750 واتخذت بغداد مركزاً سياسياً وفكرياً. تفاوتت سلطتها الفعلية كثيراً باختلاف المناطق والعصور. جميع الحدود تقريبية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-abbasid"
+      ]
+    },
+    {
+      "id": "cordoba-umayyads",
+      "name": {
+        "fr": "Al-Andalus omeyyade",
+        "en": "Umayyad al-Andalus",
+        "ar": "الأندلس الأموية"
+      },
+      "type": "emirate",
+      "startYear": 756,
+      "endYear": 1031,
+      "capital": "cordoba",
+      "color": "#BAA06C",
+      "territories": [
+        {
+          "startYear": 756,
+          "endYear": 1031,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -9,
+                  37
+                ],
+                [
+                  -8.8,
+                  40
+                ],
+                [
+                  -7,
+                  41.2
+                ],
+                [
+                  -4.5,
+                  41.7
+                ],
+                [
+                  -2,
+                  41
+                ],
+                [
+                  -0.5,
+                  39.5
+                ],
+                [
+                  -0.5,
+                  38.3
+                ],
+                [
+                  -2.2,
+                  36.8
+                ],
+                [
+                  -5.5,
+                  36
+                ],
+                [
+                  -7,
+                  37
+                ],
+                [
+                  -9,
+                  37
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "L’émirat de Cordoue est fondé en 756 ; le califat est proclamé en 929. Ce contour général ne représente pas les frontières changeantes d’al-Andalus. Données DEMO : notice indicative à vérifier.",
+        "en": "The Emirate of Córdoba is founded in 756; a caliphate is proclaimed in 929. This general outline does not represent the changing boundaries of al-Andalus. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "تأسست إمارة قرطبة عام 756 وأُعلنت الخلافة عام 929. لا يمثل هذا الرسم العام حدود الأندلس المتغيرة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-cordoba"
+      ]
+    },
+    {
+      "id": "idrisid-dynasty",
+      "name": {
+        "fr": "Dynastie idrisside",
+        "en": "Idrisid dynasty",
+        "ar": "الدولة الإدريسية"
+      },
+      "type": "dynasty",
+      "startYear": 788,
+      "endYear": 974,
+      "capital": "fez",
+      "color": "#B98670",
+      "territories": [
+        {
+          "startYear": 788,
+          "endYear": 974,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -8,
+                  34
+                ],
+                [
+                  -6,
+                  35.7
+                ],
+                [
+                  -3,
+                  35.2
+                ],
+                [
+                  -1.5,
+                  33.8
+                ],
+                [
+                  -2.5,
+                  31.4
+                ],
+                [
+                  -5,
+                  30.5
+                ],
+                [
+                  -7.5,
+                  31.5
+                ],
+                [
+                  -8.7,
+                  32.8
+                ],
+                [
+                  -8,
+                  34
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Pouvoir établi au Maghreb occidental à la fin du VIIIe siècle, associé au développement de Fès. La géographie est illustrative. Données DEMO : notice indicative à vérifier.",
+        "en": "A power established in the western Maghreb in the late eighth century, associated with the growth of Fez. Geography is illustrative. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "دولة نشأت في المغرب الأقصى أواخر القرن الثامن وارتبطت بنمو فاس. الجغرافيا توضيحية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-idrisid"
+      ]
+    },
+    {
+      "id": "aghlabid-dynasty",
+      "name": {
+        "fr": "Émirat aghlabide",
+        "en": "Aghlabid Emirate",
+        "ar": "الدولة الأغلبية"
+      },
+      "type": "emirate",
+      "startYear": 800,
+      "endYear": 909,
+      "capital": "kairouan",
+      "color": "#91A17F",
+      "territories": [
+        {
+          "startYear": 800,
+          "endYear": 909,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  6,
+                  36.5
+                ],
+                [
+                  8.5,
+                  37.3
+                ],
+                [
+                  11,
+                  37
+                ],
+                [
+                  12,
+                  34.5
+                ],
+                [
+                  17,
+                  32.5
+                ],
+                [
+                  18,
+                  30.5
+                ],
+                [
+                  12,
+                  29.5
+                ],
+                [
+                  8,
+                  32
+                ],
+                [
+                  5.5,
+                  34
+                ],
+                [
+                  6,
+                  36.5
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Les Aghlabides gouvernent l’Ifriqiya à partir de 800. La dépendance nominale envers les Abbassides et l’autonomie locale demandent des lectures distinctes. Données DEMO : notice indicative à vérifier.",
+        "en": "The Aghlabids govern Ifriqiya from 800. Nominal Abbasid allegiance and local autonomy require separate interpretation. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "حكم الأغالبة إفريقية منذ عام 800. يجب التمييز بين التبعية الاسمية للعباسيين والاستقلال المحلي. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-aghlabid"
+      ]
+    },
+    {
+      "id": "fatimid-caliphate",
+      "name": {
+        "fr": "Califat fatimide",
+        "en": "Fatimid Caliphate",
+        "ar": "الخلافة الفاطمية"
+      },
+      "type": "caliphate",
+      "startYear": 909,
+      "endYear": 1171,
+      "capital": "cairo",
+      "color": "#A68E6D",
+      "territories": [
+        {
+          "startYear": 909,
+          "endYear": 968,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  1,
+                  35
+                ],
+                [
+                  7,
+                  37
+                ],
+                [
+                  11,
+                  36
+                ],
+                [
+                  17,
+                  32
+                ],
+                [
+                  15,
+                  29
+                ],
+                [
+                  7,
+                  30
+                ],
+                [
+                  2,
+                  32
+                ],
+                [
+                  1,
+                  35
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        },
+        {
+          "startYear": 969,
+          "endYear": 1171,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  21,
+                  32
+                ],
+                [
+                  29,
+                  31.5
+                ],
+                [
+                  35,
+                  34
+                ],
+                [
+                  37,
+                  31
+                ],
+                [
+                  36,
+                  26
+                ],
+                [
+                  32,
+                  22
+                ],
+                [
+                  27,
+                  24
+                ],
+                [
+                  25,
+                  29
+                ],
+                [
+                  21,
+                  32
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Établis d’abord en Ifriqiya, les Fatimides déplacent leur centre vers l’Égypte. Les deux instantanés sont des schémas pédagogiques. Données DEMO : notice indicative à vérifier.",
+        "en": "Initially established in Ifriqiya, the Fatimids move their centre to Egypt. The two snapshots are educational sketches. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "نشأ الفاطميون أولاً في إفريقية ثم نقلوا مركزهم إلى مصر. اللقطتان الجغرافيتان رسمان تعليميان. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-fatimid"
+      ]
+    },
+    {
+      "id": "seljuk-empire",
+      "name": {
+        "fr": "Empire seldjoukide",
+        "en": "Seljuk Empire",
+        "ar": "الدولة السلجوقية"
+      },
+      "type": "empire",
+      "startYear": 1037,
+      "endYear": 1194,
+      "capital": "isfahan",
+      "color": "#9C8AAA",
+      "territories": [
+        {
+          "startYear": 1037,
+          "endYear": 1194,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  35,
+                  37
+                ],
+                [
+                  42,
+                  41
+                ],
+                [
+                  50,
+                  39
+                ],
+                [
+                  60,
+                  39
+                ],
+                [
+                  66,
+                  35
+                ],
+                [
+                  64,
+                  28
+                ],
+                [
+                  55,
+                  26
+                ],
+                [
+                  49,
+                  29
+                ],
+                [
+                  42,
+                  34
+                ],
+                [
+                  37,
+                  34
+                ],
+                [
+                  35,
+                  37
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Un pouvoir turcophone majeur en Iran et dans l’Orient islamique. Le contour résume des espaces d’influence variables. Données DEMO : notice indicative à vérifier.",
+        "en": "A major Turkic power in Iran and the eastern Islamic world. The outline summarizes changing areas of influence. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "قوة تركية كبرى في إيران والمشرق الإسلامي. يلخص الرسم مناطق نفوذ متغيرة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "almoravid-dynasty",
+      "name": {
+        "fr": "Dynastie almoravide",
+        "en": "Almoravid dynasty",
+        "ar": "دولة المرابطين"
+      },
+      "type": "dynasty",
+      "startYear": 1040,
+      "endYear": 1147,
+      "capital": "marrakesh",
+      "color": "#B58A72",
+      "territories": [
+        {
+          "startYear": 1040,
+          "endYear": 1147,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -10,
+                  29
+                ],
+                [
+                  -8,
+                  34
+                ],
+                [
+                  -6,
+                  36
+                ],
+                [
+                  -8,
+                  39
+                ],
+                [
+                  -6,
+                  40
+                ],
+                [
+                  -2,
+                  39
+                ],
+                [
+                  -1,
+                  36
+                ],
+                [
+                  -3,
+                  34
+                ],
+                [
+                  -2,
+                  30
+                ],
+                [
+                  -6,
+                  24
+                ],
+                [
+                  -10,
+                  25
+                ],
+                [
+                  -10,
+                  29
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Un pouvoir né dans les réseaux sahariens, puis établi à Marrakech et en al-Andalus. Le contour est simplifié. Données DEMO : notice indicative à vérifier.",
+        "en": "A power emerging from Saharan networks, then established in Marrakesh and al-Andalus. The outline is simplified. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "قوة نشأت في الشبكات الصحراوية ثم استقرت في مراكش والأندلس. الحدود مبسطة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "almohad-dynasty",
+      "name": {
+        "fr": "Dynastie almohade",
+        "en": "Almohad dynasty",
+        "ar": "دولة الموحدين"
+      },
+      "type": "dynasty",
+      "startYear": 1121,
+      "endYear": 1269,
+      "capital": "marrakesh",
+      "color": "#AE9A61",
+      "territories": [
+        {
+          "startYear": 1121,
+          "endYear": 1269,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  -10,
+                  30
+                ],
+                [
+                  -8,
+                  34
+                ],
+                [
+                  -6,
+                  36
+                ],
+                [
+                  -8,
+                  39
+                ],
+                [
+                  -4,
+                  40
+                ],
+                [
+                  -1,
+                  38
+                ],
+                [
+                  -3,
+                  35
+                ],
+                [
+                  2,
+                  36
+                ],
+                [
+                  8,
+                  37
+                ],
+                [
+                  11,
+                  35
+                ],
+                [
+                  10,
+                  32
+                ],
+                [
+                  4,
+                  30
+                ],
+                [
+                  -4,
+                  28
+                ],
+                [
+                  -10,
+                  30
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Les Almohades réunissent des territoires du Maghreb et d’al-Andalus. Les limites montrées sont uniquement indicatives. Données DEMO : notice indicative à vérifier.",
+        "en": "The Almohads bring together territories of the Maghreb and al-Andalus. The limits shown are only indicative. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "جمع الموحدون مناطق من المغرب والأندلس. الحدود المعروضة إرشادية فقط. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "ayyubid-sultanate",
+      "name": {
+        "fr": "Sultanat ayyoubide",
+        "en": "Ayyubid Sultanate",
+        "ar": "الدولة الأيوبية"
+      },
+      "type": "sultanate",
+      "startYear": 1171,
+      "endYear": 1250,
+      "capital": "cairo",
+      "color": "#91A17F",
+      "territories": [
+        {
+          "startYear": 1171,
+          "endYear": 1250,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  27,
+                  31
+                ],
+                [
+                  32,
+                  31
+                ],
+                [
+                  35,
+                  35
+                ],
+                [
+                  39,
+                  37
+                ],
+                [
+                  43,
+                  36
+                ],
+                [
+                  41,
+                  32
+                ],
+                [
+                  37,
+                  29
+                ],
+                [
+                  36,
+                  25
+                ],
+                [
+                  39,
+                  21
+                ],
+                [
+                  35,
+                  19
+                ],
+                [
+                  31,
+                  23
+                ],
+                [
+                  27,
+                  31
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "La dynastie de Saladin gouverne l’Égypte et des territoires voisins selon des arrangements dynastiques changeants. Données DEMO : notice indicative à vérifier.",
+        "en": "Saladin’s dynasty governs Egypt and neighbouring territories through changing dynastic arrangements. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "حكمت أسرة صلاح الدين مصر ومناطق مجاورة وفق ترتيبات أسرية متغيرة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "mamluk-sultanate",
+      "name": {
+        "fr": "Sultanat mamelouk",
+        "en": "Mamluk Sultanate",
+        "ar": "سلطنة المماليك"
+      },
+      "type": "sultanate",
+      "startYear": 1250,
+      "endYear": 1516,
+      "capital": "cairo",
+      "color": "#AA866B",
+      "territories": [
+        {
+          "startYear": 1250,
+          "endYear": 1516,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  25,
+                  31
+                ],
+                [
+                  32,
+                  31
+                ],
+                [
+                  35,
+                  36
+                ],
+                [
+                  39,
+                  37
+                ],
+                [
+                  41,
+                  35
+                ],
+                [
+                  38,
+                  31
+                ],
+                [
+                  36,
+                  28
+                ],
+                [
+                  39,
+                  24
+                ],
+                [
+                  41,
+                  20
+                ],
+                [
+                  39,
+                  18
+                ],
+                [
+                  34,
+                  23
+                ],
+                [
+                  29,
+                  23
+                ],
+                [
+                  25,
+                  31
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Un sultanat centré sur l’Égypte et le Levant. La souveraineté et l’influence ne se lisent pas comme des frontières modernes. Données DEMO : notice indicative à vérifier.",
+        "en": "A sultanate centred on Egypt and the Levant. Sovereignty and influence do not map directly onto modern borders. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "سلطنة مركزها مصر وبلاد الشام. لا تتطابق السيادة والنفوذ مع مفهوم الحدود الحديثة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "ottoman-empire",
+      "name": {
+        "fr": "Empire ottoman",
+        "en": "Ottoman Empire",
+        "ar": "الدولة العثمانية"
+      },
+      "type": "empire",
+      "startYear": 1299,
+      "endYear": 1924,
+      "capital": "istanbul",
+      "color": "#7E89A5",
+      "territories": [
+        {
+          "startYear": 1299,
+          "endYear": 1452,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  26,
+                  40
+                ],
+                [
+                  29,
+                  42
+                ],
+                [
+                  35,
+                  41
+                ],
+                [
+                  36,
+                  38
+                ],
+                [
+                  30,
+                  37
+                ],
+                [
+                  27,
+                  38
+                ],
+                [
+                  26,
+                  40
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        },
+        {
+          "startYear": 1453,
+          "endYear": 1516,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  20,
+                  40
+                ],
+                [
+                  24,
+                  44
+                ],
+                [
+                  30,
+                  44
+                ],
+                [
+                  37,
+                  42
+                ],
+                [
+                  43,
+                  40
+                ],
+                [
+                  42,
+                  37
+                ],
+                [
+                  33,
+                  36
+                ],
+                [
+                  27,
+                  38
+                ],
+                [
+                  20,
+                  40
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        },
+        {
+          "startYear": 1517,
+          "endYear": 1799,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  18,
+                  41
+                ],
+                [
+                  23,
+                  46
+                ],
+                [
+                  31,
+                  45
+                ],
+                [
+                  39,
+                  42
+                ],
+                [
+                  44,
+                  38
+                ],
+                [
+                  44,
+                  31
+                ],
+                [
+                  39,
+                  26
+                ],
+                [
+                  43,
+                  17
+                ],
+                [
+                  38,
+                  18
+                ],
+                [
+                  33,
+                  24
+                ],
+                [
+                  27,
+                  29
+                ],
+                [
+                  16,
+                  30
+                ],
+                [
+                  9,
+                  34
+                ],
+                [
+                  11,
+                  37
+                ],
+                [
+                  21,
+                  33
+                ],
+                [
+                  28,
+                  36
+                ],
+                [
+                  18,
+                  41
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        },
+        {
+          "startYear": 1800,
+          "endYear": 1924,
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  25,
+                  40
+                ],
+                [
+                  28,
+                  42
+                ],
+                [
+                  35,
+                  42
+                ],
+                [
+                  43,
+                  40
+                ],
+                [
+                  45,
+                  37
+                ],
+                [
+                  39,
+                  36
+                ],
+                [
+                  32,
+                  36
+                ],
+                [
+                  28,
+                  38
+                ],
+                [
+                  25,
+                  40
+                ]
+              ]
+            ]
+          },
+          "certainty": "low"
+        }
+      ],
+      "description": {
+        "fr": "Les instantanés illustrent des phases très différentes de l’histoire ottomane. Le sultanat prend fin en 1922 ; la date 1924 marque ici la fin du califat. Aucune frontière n’est une restitution scientifique. Données DEMO : notice indicative à vérifier.",
+        "en": "The snapshots illustrate very different phases of Ottoman history. The sultanate ends in 1922; 1924 marks the end of the caliphate here. No boundary is a scholarly reconstruction. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "توضح اللقطات مراحل مختلفة جداً من التاريخ العثماني. انتهت السلطنة عام 1922، ويشير عام 1924 هنا إلى نهاية الخلافة. لا تمثل الحدود إعادة بناء علمية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-ottoman"
+      ]
+    }
+  ],
+  "cities": [
+    {
+      "id": "mecca",
+      "name": {
+        "fr": "La Mecque",
+        "en": "Mecca",
+        "ar": "مكة"
+      },
+      "historicalNames": [
+        "Makkah"
+      ],
+      "latitude": 21.4225,
+      "longitude": 39.8262,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "religious",
+      "description": {
+        "fr": "Ville du Hedjaz, lieu central de l’histoire et du pèlerinage musulmans. Données DEMO : notice indicative à vérifier.",
+        "en": "A city of the Hejaz central to Muslim history and pilgrimage. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة في الحجاز لها مكانة مركزية في التاريخ الإسلامي والحج. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-revelation",
+        "event-mecca"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "medina",
+      "name": {
+        "fr": "Médine",
+        "en": "Medina",
+        "ar": "المدينة المنورة"
+      },
+      "historicalNames": [
+        "Yathrib",
+        "Al-Madinah"
+      ],
+      "latitude": 24.4672,
+      "longitude": 39.6111,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "religious",
+      "description": {
+        "fr": "Yathrib devient le foyer de la première communauté musulmane après l’hégire. Données DEMO : notice indicative à vérifier.",
+        "en": "Yathrib becomes home to the early Muslim community after the Hijra. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "أصبحت يثرب موطن الجماعة المسلمة الأولى بعد الهجرة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-hijra"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "damascus",
+      "name": {
+        "fr": "Damas",
+        "en": "Damascus",
+        "ar": "دمشق"
+      },
+      "historicalNames": [
+        "Dimashq"
+      ],
+      "latitude": 33.5138,
+      "longitude": 36.2765,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "capital",
+      "description": {
+        "fr": "Ville du Levant et capitale du califat omeyyade. Données DEMO : notice indicative à vérifier.",
+        "en": "A Levantine city and capital of the Umayyad caliphate. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة في بلاد الشام وعاصمة الخلافة الأموية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-umayyads"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "jerusalem",
+      "name": {
+        "fr": "Jérusalem",
+        "en": "Jerusalem",
+        "ar": "القدس"
+      },
+      "historicalNames": [
+        "Al-Quds"
+      ],
+      "latitude": 31.778,
+      "longitude": 35.235,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "religious",
+      "description": {
+        "fr": "Ville sainte où se croisent plusieurs traditions religieuses. Données DEMO : notice indicative à vérifier.",
+        "en": "A holy city shared by several religious traditions. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة مقدسة تتقاطع فيها تقاليد دينية متعددة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-dome"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "baghdad",
+      "name": {
+        "fr": "Bagdad",
+        "en": "Baghdad",
+        "ar": "بغداد"
+      },
+      "historicalNames": [
+        "Madinat al-Salam",
+        "Baghdad"
+      ],
+      "latitude": 33.3152,
+      "longitude": 44.3661,
+      "activeFrom": 762,
+      "activeUntil": null,
+      "importance": "capital",
+      "description": {
+        "fr": "Fondée en 762, la capitale abbasside devient un grand centre politique, commercial et intellectuel. Données DEMO : notice indicative à vérifier.",
+        "en": "Founded in 762, the Abbasid capital becomes a major political, commercial and intellectual centre. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "تأسست عام 762 وأصبحت العاصمة العباسية مركزاً سياسياً وتجارياً وفكرياً كبيراً. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-baghdad",
+        "event-harun",
+        "event-translations",
+        "event-baghdad-sack"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "cordoba",
+      "name": {
+        "fr": "Cordoue",
+        "en": "Córdoba",
+        "ar": "قرطبة"
+      },
+      "historicalNames": [
+        "Cordoba",
+        "Qurtuba"
+      ],
+      "latitude": 37.8882,
+      "longitude": -4.7794,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "cultural",
+      "description": {
+        "fr": "Centre politique et culturel d’al-Andalus sous les Omeyyades. Données DEMO : notice indicative à vérifier.",
+        "en": "A political and cultural centre of al-Andalus under the Umayyads. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مركز سياسي وثقافي للأندلس في العهد الأموي. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-cordoba-emirate",
+        "event-cordoba-mosque",
+        "event-cordoba-caliphate"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "fez",
+      "name": {
+        "fr": "Fès",
+        "en": "Fez",
+        "ar": "فاس"
+      },
+      "historicalNames": [
+        "Fes"
+      ],
+      "latitude": 34.0331,
+      "longitude": -5.0003,
+      "activeFrom": 789,
+      "activeUntil": null,
+      "importance": "cultural",
+      "description": {
+        "fr": "Centre urbain associé à la dynastie idrisside ; les étapes de sa fondation nécessitent une lecture nuancée. Données DEMO : notice indicative à vérifier.",
+        "en": "An urban centre associated with the Idrisid dynasty; its foundation unfolded in several stages. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مركز حضري مرتبط بالدولة الإدريسية؛ جرى تأسيسه على مراحل متعددة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-fez"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "kairouan",
+      "name": {
+        "fr": "Kairouan",
+        "en": "Kairouan",
+        "ar": "القيروان"
+      },
+      "historicalNames": [
+        "Qayrawan"
+      ],
+      "latitude": 35.6781,
+      "longitude": 10.0963,
+      "activeFrom": 670,
+      "activeUntil": null,
+      "importance": "religious",
+      "description": {
+        "fr": "Ville fondée au VIIe siècle, centre politique et religieux de l’Ifriqiya. Données DEMO : notice indicative à vérifier.",
+        "en": "Founded in the seventh century, a political and religious centre of Ifriqiya. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة تأسست في القرن السابع وأصبحت مركزاً سياسياً ودينياً لإفريقية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-kairouan",
+        "event-aghlabids"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "cairo",
+      "name": {
+        "fr": "Le Caire",
+        "en": "Cairo",
+        "ar": "القاهرة"
+      },
+      "historicalNames": [
+        "Al-Qahira"
+      ],
+      "latitude": 30.0444,
+      "longitude": 31.2357,
+      "activeFrom": 969,
+      "activeUntil": null,
+      "importance": "capital",
+      "description": {
+        "fr": "Fondation fatimide voisine de Fustat, puis capitale de plusieurs dynasties. Données DEMO : notice indicative à vérifier.",
+        "en": "A Fatimid foundation near Fustat, later capital of several dynasties. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة أسسها الفاطميون قرب الفسطاط ثم أصبحت عاصمة لدول متعددة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-cairo",
+        "event-ottoman-egypt"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "fustat",
+      "name": {
+        "fr": "Fustat",
+        "en": "Fustat",
+        "ar": "الفسطاط"
+      },
+      "historicalNames": [
+        "Al-Fustat"
+      ],
+      "latitude": 30.0069,
+      "longitude": 31.2316,
+      "activeFrom": 641,
+      "activeUntil": null,
+      "importance": "commercial",
+      "description": {
+        "fr": "Centre urbain de l’Égypte musulmane antérieur au Caire. Données DEMO : notice indicative à vérifier.",
+        "en": "An urban centre of Muslim Egypt predating Cairo. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مركز حضري في مصر الإسلامية سبق تأسيس القاهرة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "samarra",
+      "name": {
+        "fr": "Samarra",
+        "en": "Samarra",
+        "ar": "سامراء"
+      },
+      "historicalNames": [],
+      "latitude": 34.1983,
+      "longitude": 43.8742,
+      "activeFrom": 836,
+      "activeUntil": null,
+      "importance": "capital",
+      "description": {
+        "fr": "Ville d’Irak choisie comme résidence califale au IXe siècle. Données DEMO : notice indicative à vérifier.",
+        "en": "An Iraqi city used as a caliphal residence in the ninth century. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة عراقية اتخذت مقراً للخلافة في القرن التاسع. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-samarra"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "bukhara",
+      "name": {
+        "fr": "Boukhara",
+        "en": "Bukhara",
+        "ar": "بخارى"
+      },
+      "historicalNames": [
+        "Bukhara"
+      ],
+      "latitude": 39.7681,
+      "longitude": 64.4556,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "scientific",
+      "description": {
+        "fr": "Ville d’Asie centrale au croisement des réseaux marchands et savants. Données DEMO : notice indicative à vérifier.",
+        "en": "A Central Asian city at the meeting of commercial and scholarly networks. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة في آسيا الوسطى عند ملتقى الشبكات التجارية والعلمية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "samarkand",
+      "name": {
+        "fr": "Samarcande",
+        "en": "Samarkand",
+        "ar": "سمرقند"
+      },
+      "historicalNames": [
+        "Samarqand"
+      ],
+      "latitude": 39.6542,
+      "longitude": 66.9597,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "commercial",
+      "description": {
+        "fr": "Une grande étape des échanges en Asie centrale. Données DEMO : notice indicative à vérifier.",
+        "en": "A major centre of exchange in Central Asia. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "محطة كبرى للتبادل في آسيا الوسطى. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "rayy",
+      "name": {
+        "fr": "Rayy",
+        "en": "Rayy",
+        "ar": "الري"
+      },
+      "historicalNames": [],
+      "latitude": 35.593,
+      "longitude": 51.439,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "cultural",
+      "description": {
+        "fr": "Ville historique proche de l’actuelle Téhéran, associée à la naissance de Hârûn ar-Rachîd. Données DEMO : notice indicative à vérifier.",
+        "en": "A historic city near modern Tehran, associated with the birth of Harun al-Rashid. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة تاريخية قرب طهران الحالية، ترتبط بمولد هارون الرشيد. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "tunis",
+      "name": {
+        "fr": "Tunis",
+        "en": "Tunis",
+        "ar": "تونس"
+      },
+      "historicalNames": [],
+      "latitude": 36.8065,
+      "longitude": 10.1815,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "commercial",
+      "description": {
+        "fr": "Ville du Maghreb et lieu de naissance d’Ibn Khaldûn. Données DEMO : notice indicative à vérifier.",
+        "en": "A Maghrebi city and the birthplace of Ibn Khaldun. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة مغاربية ومسقط رأس ابن خلدون. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "marrakesh",
+      "name": {
+        "fr": "Marrakech",
+        "en": "Marrakesh",
+        "ar": "مراكش"
+      },
+      "historicalNames": [],
+      "latitude": 31.6295,
+      "longitude": -7.9811,
+      "activeFrom": 1070,
+      "activeUntil": null,
+      "importance": "capital",
+      "description": {
+        "fr": "Centre politique des Almoravides puis des Almohades. Données DEMO : notice indicative à vérifier.",
+        "en": "A political centre of the Almoravids and then the Almohads. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مركز سياسي للمرابطين ثم الموحدين. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "istanbul",
+      "name": {
+        "fr": "Constantinople",
+        "en": "Constantinople",
+        "ar": "القسطنطينية"
+      },
+      "historicalNames": [
+        "Istanbul",
+        "İstanbul"
+      ],
+      "latitude": 41.0082,
+      "longitude": 28.9784,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "capital",
+      "description": {
+        "fr": "Capitale byzantine puis ottomane après la conquête de 1453. Données DEMO : notice indicative à vérifier.",
+        "en": "The Byzantine capital, then an Ottoman capital after the conquest of 1453. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "عاصمة بيزنطية ثم عثمانية بعد فتحها عام 1453. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-constantinople",
+        "event-caliphate-end"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "bursa",
+      "name": {
+        "fr": "Bursa",
+        "en": "Bursa",
+        "ar": "بورصة"
+      },
+      "historicalNames": [],
+      "latitude": 40.1885,
+      "longitude": 29.061,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "political",
+      "description": {
+        "fr": "Une des premières capitales ottomanes en Anatolie. Données DEMO : notice indicative à vérifier.",
+        "en": "One of the early Ottoman capitals in Anatolia. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "إحدى العواصم العثمانية المبكرة في الأناضول. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "isfahan",
+      "name": {
+        "fr": "Ispahan",
+        "en": "Isfahan",
+        "ar": "أصفهان"
+      },
+      "historicalNames": [],
+      "latitude": 32.6546,
+      "longitude": 51.668,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "cultural",
+      "description": {
+        "fr": "Ville iranienne ayant accueilli plusieurs centres de pouvoir et de culture. Données DEMO : notice indicative à vérifier.",
+        "en": "An Iranian city associated with several centres of power and culture. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة إيرانية ارتبطت بمراكز متعددة للسلطة والثقافة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "ceuta",
+      "name": {
+        "fr": "Ceuta",
+        "en": "Ceuta",
+        "ar": "سبتة"
+      },
+      "historicalNames": [],
+      "latitude": 35.8894,
+      "longitude": -5.3213,
+      "activeFrom": 610,
+      "activeUntil": null,
+      "importance": "commercial",
+      "description": {
+        "fr": "Ville du détroit de Gibraltar associée au géographe al-Idrîsî. Données DEMO : notice indicative à vérifier.",
+        "en": "A city on the Strait of Gibraltar associated with the geographer al-Idrisi. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مدينة على مضيق جبل طارق ترتبط بالجغرافي الإدريسي. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "sources": [
+        "source-history"
+      ]
+    }
+  ],
+  "events": [
+    {
+      "id": "event-revelation",
+      "title": {
+        "fr": "Débuts de la révélation",
+        "en": "Beginning of the revelation",
+        "ar": "بداية الوحي"
+      },
+      "startYear": 610,
+      "endYear": 610,
+      "location": {
+        "latitude": 21.4225,
+        "longitude": 39.8262
+      },
+      "type": "religious",
+      "description": {
+        "fr": "Date traditionnellement associée au commencement de la révélation coranique. Données DEMO : notice indicative à vérifier.",
+        "en": "The date traditionally associated with the beginning of Quranic revelation. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "التاريخ المرتبط تقليدياً ببداية نزول الوحي القرآني. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-hijra",
+      "title": {
+        "fr": "L’hégire vers Médine",
+        "en": "The Hijra to Medina",
+        "ar": "الهجرة إلى المدينة"
+      },
+      "startYear": 622,
+      "endYear": 622,
+      "location": {
+        "latitude": 24.4672,
+        "longitude": 39.6111
+      },
+      "type": "migration",
+      "description": {
+        "fr": "La migration de La Mecque à Médine sert de référence à l’ère hégirienne. Données DEMO : notice indicative à vérifier.",
+        "en": "The migration from Mecca to Medina serves as the reference for the Hijri era. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "أصبحت الهجرة من مكة إلى المدينة مرجعاً للتقويم الهجري. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "medina-polity"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-mecca",
+      "title": {
+        "fr": "Prise de La Mecque",
+        "en": "Conquest of Mecca",
+        "ar": "فتح مكة"
+      },
+      "startYear": 630,
+      "endYear": 630,
+      "location": {
+        "latitude": 21.4225,
+        "longitude": 39.8262
+      },
+      "type": "conquest",
+      "description": {
+        "fr": "Un jalon de l’unification politique de l’Arabie autour de la communauté de Médine. Données DEMO : notice indicative à vérifier.",
+        "en": "A milestone in the political unification of Arabia around the community of Medina. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "محطة في توحيد الجزيرة العربية سياسياً حول مجتمع المدينة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "medina-polity"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-umayyads",
+      "title": {
+        "fr": "Damas, capitale omeyyade",
+        "en": "Damascus, Umayyad capital",
+        "ar": "دمشق عاصمة أموية"
+      },
+      "startYear": 661,
+      "endYear": 661,
+      "location": {
+        "latitude": 33.5138,
+        "longitude": 36.2765
+      },
+      "type": "dynasty-change",
+      "description": {
+        "fr": "Le début du pouvoir omeyyade installe Damas au centre du califat. Données DEMO : notice indicative à vérifier.",
+        "en": "The beginning of Umayyad rule places Damascus at the centre of the caliphate. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "جعل بدء الحكم الأموي دمشق مركزاً للخلافة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "umayyad-caliphate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-kairouan",
+      "title": {
+        "fr": "Fondation de Kairouan",
+        "en": "Foundation of Kairouan",
+        "ar": "تأسيس القيروان"
+      },
+      "startYear": 670,
+      "endYear": 670,
+      "location": {
+        "latitude": 35.6781,
+        "longitude": 10.0963
+      },
+      "type": "city-foundation",
+      "description": {
+        "fr": "Fondation d’un centre militaire et urbain en Ifriqiya. Données DEMO : notice indicative à vérifier.",
+        "en": "Foundation of a military and urban centre in Ifriqiya. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "تأسيس مركز عسكري وحضري في إفريقية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "umayyad-caliphate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-dome",
+      "title": {
+        "fr": "Le Dôme du Rocher",
+        "en": "The Dome of the Rock",
+        "ar": "قبة الصخرة"
+      },
+      "startYear": 691,
+      "endYear": 692,
+      "location": {
+        "latitude": 31.778,
+        "longitude": 35.235
+      },
+      "type": "cultural",
+      "description": {
+        "fr": "Un monument majeur de la période omeyyade ; la datation est présentée sous forme d’intervalle. Données DEMO : notice indicative à vérifier.",
+        "en": "A major monument of the Umayyad period; the dating is shown as an interval. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "معلم بارز من العصر الأموي؛ يعرض التأريخ هنا على شكل فترة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "umayyad-caliphate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-abbasids",
+      "title": {
+        "fr": "Avènement des Abbassides",
+        "en": "Rise of the Abbasids",
+        "ar": "قيام الدولة العباسية"
+      },
+      "startYear": 750,
+      "endYear": 750,
+      "location": {
+        "latitude": 33.5138,
+        "longitude": 36.2765
+      },
+      "type": "dynasty-change",
+      "description": {
+        "fr": "Changement dynastique majeur. Le marqueur à Damas est un repère visuel de démonstration, non le lieu unique de cet événement. Données DEMO : notice indicative à vérifier.",
+        "en": "A major dynastic change. The Damascus marker is a visual demonstration anchor, not the sole location of this event. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "تحول كبير في الحكم. علامة دمشق مرجع بصري تجريبي وليست الموقع الوحيد لهذا الحدث. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "abbasid-caliphate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-cordoba-emirate",
+      "title": {
+        "fr": "L’émirat de Cordoue",
+        "en": "The Emirate of Córdoba",
+        "ar": "إمارة قرطبة"
+      },
+      "startYear": 756,
+      "endYear": 756,
+      "location": {
+        "latitude": 37.8882,
+        "longitude": -4.7794
+      },
+      "type": "political-change",
+      "description": {
+        "fr": "Un pouvoir omeyyade autonome s’établit en al-Andalus. Données DEMO : notice indicative à vérifier.",
+        "en": "An autonomous Umayyad power is established in al-Andalus. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "قيام حكم أموي مستقل في الأندلس. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "cordoba-umayyads"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-baghdad",
+      "title": {
+        "fr": "Fondation de Bagdad",
+        "en": "Foundation of Baghdad",
+        "ar": "تأسيس بغداد"
+      },
+      "startYear": 762,
+      "endYear": 762,
+      "location": {
+        "latitude": 33.3152,
+        "longitude": 44.3661
+      },
+      "type": "city-foundation",
+      "description": {
+        "fr": "Le calife al-Mansûr fonde une nouvelle capitale sur le Tigre. Données DEMO : notice indicative à vérifier.",
+        "en": "Caliph al-Mansur founds a new capital on the Tigris. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "أسس الخليفة المنصور عاصمة جديدة على نهر دجلة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "abbasid-caliphate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-baghdad"
+      ]
+    },
+    {
+      "id": "event-cordoba-mosque",
+      "title": {
+        "fr": "La Grande Mosquée de Cordoue",
+        "en": "The Great Mosque of Córdoba",
+        "ar": "جامع قرطبة الكبير"
+      },
+      "startYear": 785,
+      "endYear": 786,
+      "location": {
+        "latitude": 37.8882,
+        "longitude": -4.7794
+      },
+      "type": "cultural",
+      "description": {
+        "fr": "Première grande phase de construction d’un monument ensuite transformé à plusieurs reprises. Données DEMO : notice indicative à vérifier.",
+        "en": "The first major construction phase of a monument subsequently transformed several times. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "أول مرحلة كبرى في بناء معلم شهد تحولات متكررة لاحقاً. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "cordoba-umayyads"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-harun",
+      "title": {
+        "fr": "Le règne de Hârûn ar-Rachîd",
+        "en": "The reign of Harun al-Rashid",
+        "ar": "عهد هارون الرشيد"
+      },
+      "startYear": 786,
+      "endYear": 809,
+      "location": {
+        "latitude": 33.3152,
+        "longitude": 44.3661
+      },
+      "type": "political-change",
+      "description": {
+        "fr": "Un règne abbasside associé à l’essor de la vie de cour, des échanges et des savoirs. Données DEMO : notice indicative à vérifier.",
+        "en": "An Abbasid reign associated with court life, exchange and scholarship. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "عهد عباسي ارتبط بنمو حياة البلاط والتبادل والمعارف. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "abbasid-caliphate"
+      ],
+      "relatedPeople": [
+        "harun-al-rashid"
+      ],
+      "sources": [
+        "source-abbasid"
+      ]
+    },
+    {
+      "id": "event-fez",
+      "title": {
+        "fr": "Les premiers noyaux de Fès",
+        "en": "The early settlements of Fez",
+        "ar": "النوى الأولى لمدينة فاس"
+      },
+      "startYear": 789,
+      "endYear": 789,
+      "location": {
+        "latitude": 34.0331,
+        "longitude": -5.0003
+      },
+      "type": "city-foundation",
+      "description": {
+        "fr": "Un jalon conventionnel pour une fondation urbaine en plusieurs étapes. Données DEMO : notice indicative à vérifier.",
+        "en": "A conventional milestone for an urban foundation that developed in several stages. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "محطة اصطلاحية لتأسيس حضري تطور على مراحل متعددة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "idrisid-dynasty"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-aghlabids",
+      "title": {
+        "fr": "Les Aghlabides en Ifriqiya",
+        "en": "The Aghlabids in Ifriqiya",
+        "ar": "الأغالبة في إفريقية"
+      },
+      "startYear": 800,
+      "endYear": 800,
+      "location": {
+        "latitude": 35.6781,
+        "longitude": 10.0963
+      },
+      "type": "dynasty-change",
+      "description": {
+        "fr": "Le début d’une dynastie locale sous souveraineté abbasside nominale. Données DEMO : notice indicative à vérifier.",
+        "en": "The beginning of a local dynasty under nominal Abbasid sovereignty. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "بداية دولة محلية تحت السيادة العباسية الاسمية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "aghlabid-dynasty",
+        "abbasid-caliphate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-translations",
+      "title": {
+        "fr": "Les savoirs en mouvement",
+        "en": "Knowledge in circulation",
+        "ar": "المعارف في حركة"
+      },
+      "startYear": 800,
+      "endYear": 850,
+      "location": {
+        "latitude": 33.3152,
+        "longitude": 44.3661
+      },
+      "type": "scientific",
+      "description": {
+        "fr": "Fenêtre chronologique de démonstration pour les échanges savants et les traductions à Bagdad ; ce n’est pas un événement daté unique. Données DEMO : notice indicative à vérifier.",
+        "en": "A demonstration time window for scholarly exchange and translation in Baghdad; this is not a single dated event. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "فترة تجريبية للتبادل العلمي والترجمة في بغداد؛ لا تمثل حدثاً واحداً محدد التاريخ. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "abbasid-caliphate"
+      ],
+      "relatedPeople": [
+        "al-mamun"
+      ],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-samarra",
+      "title": {
+        "fr": "Samarra, résidence califale",
+        "en": "Samarra, caliphal residence",
+        "ar": "سامراء مقر الخلافة"
+      },
+      "startYear": 836,
+      "endYear": 836,
+      "location": {
+        "latitude": 34.1983,
+        "longitude": 43.8742
+      },
+      "type": "political-change",
+      "description": {
+        "fr": "Le transfert de la résidence califale ouvre une nouvelle phase urbaine. Données DEMO : notice indicative à vérifier.",
+        "en": "The transfer of the caliphal residence begins a new urban phase. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "نقل مقر الخلافة بداية مرحلة حضرية جديدة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "abbasid-caliphate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-cordoba-caliphate",
+      "title": {
+        "fr": "Proclamation du califat de Cordoue",
+        "en": "Proclamation of the Caliphate of Córdoba",
+        "ar": "إعلان خلافة قرطبة"
+      },
+      "startYear": 929,
+      "endYear": 929,
+      "location": {
+        "latitude": 37.8882,
+        "longitude": -4.7794
+      },
+      "type": "political-change",
+      "description": {
+        "fr": "Le souverain omeyyade de Cordoue prend le titre de calife. Données DEMO : notice indicative à vérifier.",
+        "en": "The Umayyad ruler of Córdoba takes the title of caliph. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "اتخذ حاكم قرطبة الأموي لقب الخليفة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "cordoba-umayyads"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-cairo",
+      "title": {
+        "fr": "Fondation du Caire fatimide",
+        "en": "Foundation of Fatimid Cairo",
+        "ar": "تأسيس القاهرة الفاطمية"
+      },
+      "startYear": 969,
+      "endYear": 969,
+      "location": {
+        "latitude": 30.0444,
+        "longitude": 31.2357
+      },
+      "type": "city-foundation",
+      "description": {
+        "fr": "Une nouvelle capitale est fondée à proximité de Fustat. Données DEMO : notice indicative à vérifier.",
+        "en": "A new capital is founded near Fustat. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "تأسست عاصمة جديدة قرب الفسطاط. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "fatimid-caliphate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-baghdad-sack",
+      "title": {
+        "fr": "Prise de Bagdad",
+        "en": "Capture of Baghdad",
+        "ar": "سقوط بغداد"
+      },
+      "startYear": 1258,
+      "endYear": 1258,
+      "location": {
+        "latitude": 33.3152,
+        "longitude": 44.3661
+      },
+      "type": "battle",
+      "description": {
+        "fr": "La prise de la ville par les Mongols met fin au califat abbasside de Bagdad. Données DEMO : notice indicative à vérifier.",
+        "en": "The Mongol capture of the city ends the Abbasid caliphate in Baghdad. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "أنهى استيلاء المغول على المدينة الخلافة العباسية في بغداد. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "abbasid-caliphate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-constantinople",
+      "title": {
+        "fr": "Prise de Constantinople",
+        "en": "Conquest of Constantinople",
+        "ar": "فتح القسطنطينية"
+      },
+      "startYear": 1453,
+      "endYear": 1453,
+      "location": {
+        "latitude": 41.0082,
+        "longitude": 28.9784
+      },
+      "type": "conquest",
+      "description": {
+        "fr": "Constantinople est conquise par les Ottomans et devient un centre de leur empire. Données DEMO : notice indicative à vérifier.",
+        "en": "Constantinople is conquered by the Ottomans and becomes a centre of their empire. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "فتح العثمانيون القسطنطينية وأصبحت مركزاً لدولتهم. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "ottoman-empire"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-ottoman-egypt",
+      "title": {
+        "fr": "L’Égypte sous pouvoir ottoman",
+        "en": "Egypt under Ottoman rule",
+        "ar": "مصر تحت الحكم العثماني"
+      },
+      "startYear": 1517,
+      "endYear": 1517,
+      "location": {
+        "latitude": 30.0444,
+        "longitude": 31.2357
+      },
+      "type": "political-change",
+      "description": {
+        "fr": "La conquête ottomane met fin au sultanat mamelouk du Caire. Données DEMO : notice indicative à vérifier.",
+        "en": "The Ottoman conquest ends the Mamluk sultanate in Cairo. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "أنهى الفتح العثماني سلطنة المماليك في القاهرة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "ottoman-empire",
+        "mamluk-sultanate"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    },
+    {
+      "id": "event-caliphate-end",
+      "title": {
+        "fr": "Abolition du califat ottoman",
+        "en": "Abolition of the Ottoman caliphate",
+        "ar": "إلغاء الخلافة العثمانية"
+      },
+      "startYear": 1924,
+      "endYear": 1924,
+      "location": {
+        "latitude": 41.0082,
+        "longitude": 28.9784
+      },
+      "type": "political-change",
+      "description": {
+        "fr": "Le califat est aboli par la Grande Assemblée nationale à Ankara. Le marqueur à Constantinople indique le siège historique, non le lieu de la décision. Données DEMO : notice indicative à vérifier.",
+        "en": "The caliphate is abolished by the Grand National Assembly in Ankara. The Constantinople marker indicates the historic seat, not the decision location. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "ألغى المجلس الوطني الكبير في أنقرة الخلافة. تشير علامة القسطنطينية إلى المقر التاريخي لا إلى مكان القرار. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "relatedStates": [
+        "ottoman-empire"
+      ],
+      "relatedPeople": [],
+      "sources": [
+        "source-history"
+      ]
+    }
+  ],
+  "people": [
+    {
+      "id": "harun-al-rashid",
+      "name": {
+        "fr": "Hârûn ar-Rachîd",
+        "en": "Harun al-Rashid",
+        "ar": "هارون الرشيد"
+      },
+      "birthYear": 766,
+      "deathYear": 809,
+      "birthPlace": "rayy",
+      "roles": [
+        "ruler"
+      ],
+      "description": {
+        "fr": "Calife abbasside de 786 à 809. Les récits littéraires de son règne doivent être distingués de l’histoire documentée. L’année de naissance est approximative. Données DEMO : notice indicative à vérifier.",
+        "en": "Abbasid caliph from 786 to 809. Literary accounts of his reign should be distinguished from documented history. The birth year is approximate. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "خليفة عباسي من 786 إلى 809. ينبغي التمييز بين الروايات الأدبية لعصره والتاريخ الموثق. سنة الميلاد تقريبية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-harun"
+      ],
+      "relatedStates": [
+        "abbasid-caliphate"
+      ],
+      "sources": [
+        "source-abbasid"
+      ]
+    },
+    {
+      "id": "al-mamun",
+      "name": {
+        "fr": "Al-Ma’mûn",
+        "en": "Al-Mamun",
+        "ar": "المأمون"
+      },
+      "birthYear": 786,
+      "deathYear": 833,
+      "birthPlace": "baghdad",
+      "roles": [
+        "ruler",
+        "patron"
+      ],
+      "description": {
+        "fr": "Calife abbasside associé au patronage des sciences et des traductions. Données DEMO : notice indicative à vérifier.",
+        "en": "An Abbasid caliph associated with patronage of science and translation. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "خليفة عباسي ارتبط برعاية العلوم والترجمة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [
+        "event-translations"
+      ],
+      "relatedStates": [
+        "abbasid-caliphate"
+      ],
+      "sources": [
+        "source-abbasid"
+      ]
+    },
+    {
+      "id": "ibn-rushd",
+      "name": {
+        "fr": "Ibn Rushd · Averroès",
+        "en": "Ibn Rushd · Averroes",
+        "ar": "ابن رشد"
+      },
+      "birthYear": 1126,
+      "deathYear": 1198,
+      "birthPlace": "cordoba",
+      "roles": [
+        "philosopher",
+        "physician",
+        "jurist"
+      ],
+      "description": {
+        "fr": "Penseur, médecin et juriste andalou, auteur de commentaires philosophiques. Données DEMO : notice indicative à vérifier.",
+        "en": "An Andalusian thinker, physician and jurist, known for philosophical commentaries. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مفكر وطبيب وفقيه أندلسي اشتهر بشروحه الفلسفية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "relatedStates": [
+        "almohad-dynasty"
+      ],
+      "sources": [
+        "source-rushd"
+      ]
+    },
+    {
+      "id": "ibn-khaldun",
+      "name": {
+        "fr": "Ibn Khaldûn",
+        "en": "Ibn Khaldun",
+        "ar": "ابن خلدون"
+      },
+      "birthYear": 1332,
+      "deathYear": 1406,
+      "birthPlace": "tunis",
+      "roles": [
+        "historian",
+        "scholar"
+      ],
+      "description": {
+        "fr": "Historien né à Tunis, auteur de la Muqaddima, ayant également exercé au Caire. Données DEMO : notice indicative à vérifier.",
+        "en": "A historian born in Tunis, author of the Muqaddimah, who also worked in Cairo. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "مؤرخ ولد في تونس وصاحب المقدمة، وعمل أيضاً في القاهرة. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "relatedStates": [
+        "mamluk-sultanate"
+      ],
+      "sources": [
+        "source-khaldun"
+      ]
+    },
+    {
+      "id": "al-idrisi",
+      "name": {
+        "fr": "Al-Idrîsî",
+        "en": "Al-Idrisi",
+        "ar": "الإدريسي"
+      },
+      "birthYear": 1100,
+      "deathYear": 1165,
+      "birthPlace": "ceuta",
+      "roles": [
+        "geographer",
+        "cartographer"
+      ],
+      "description": {
+        "fr": "Géographe associé à la cour de Roger II de Sicile. Ses dates biographiques sont approximatives. Données DEMO : notice indicative à vérifier.",
+        "en": "A geographer associated with the court of Roger II of Sicily. Biographical dates are approximate. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "جغرافي ارتبط ببلاط روجر الثاني في صقلية. تواريخ سيرته تقريبية. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "events": [],
+      "relatedStates": [],
+      "sources": [
+        "source-idrisi"
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "id": "route-baghdad-samarkand",
+      "name": {
+        "fr": "De Bagdad à la Transoxiane",
+        "en": "Baghdad to Transoxiana",
+        "ar": "من بغداد إلى ما وراء النهر"
+      },
+      "startYear": 750,
+      "endYear": 1258,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            44.3661,
+            33.3152
+          ],
+          [
+            51.439,
+            35.593
+          ],
+          [
+            58.5,
+            36.2
+          ],
+          [
+            64.4556,
+            39.7681
+          ],
+          [
+            66.9597,
+            39.6542
+          ]
+        ]
+      },
+      "description": {
+        "fr": "Tracé schématique reliant des pôles d’échanges ; il ne suit pas une route historique vérifiée. Données DEMO : notice indicative à vérifier.",
+        "en": "A schematic line connecting centres of exchange; it does not trace a verified historical road. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "خط تخطيطي يربط مراكز تبادل ولا يتبع طريقاً تاريخياً موثقاً. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ],
+      "certainty": "low"
+    },
+    {
+      "id": "route-mediterranean",
+      "name": {
+        "fr": "Les échanges en Méditerranée",
+        "en": "Mediterranean connections",
+        "ar": "التبادل في المتوسط"
+      },
+      "startYear": 750,
+      "endYear": 1500,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            -4.7794,
+            37.8882
+          ],
+          [
+            -5.3213,
+            35.8894
+          ],
+          [
+            3.0,
+            36.8
+          ],
+          [
+            10.1815,
+            36.8065
+          ],
+          [
+            18,
+            34.5
+          ],
+          [
+            25,
+            32.5
+          ],
+          [
+            31.2316,
+            30.0069
+          ]
+        ]
+      },
+      "description": {
+        "fr": "Connexion visuelle de villes méditerranéennes. Les escales, le tracé et l’intervalle sont uniquement illustratifs. Données DEMO : notice indicative à vérifier.",
+        "en": "A visual connection between Mediterranean cities. Stops, course and time interval are illustrative only. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "ربط بصري بين مدن متوسطية. المحطات والمسار والفترة توضيحية فقط. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ],
+      "certainty": "low"
+    },
+    {
+      "id": "route-pilgrimage",
+      "name": {
+        "fr": "Vers les lieux du pèlerinage",
+        "en": "Towards the pilgrimage cities",
+        "ar": "نحو مدن الحج"
+      },
+      "startYear": 750,
+      "endYear": 1924,
+      "geometry": {
+        "type": "LineString",
+        "coordinates": [
+          [
+            36.2765,
+            33.5138
+          ],
+          [
+            36.3,
+            30.5
+          ],
+          [
+            37.5,
+            27.5
+          ],
+          [
+            39.6111,
+            24.4672
+          ],
+          [
+            39.8262,
+            21.4225
+          ]
+        ]
+      },
+      "description": {
+        "fr": "Un axe schématique entre Damas, Médine et La Mecque. La route réelle et ses étapes varient au fil du temps. Données DEMO : notice indicative à vérifier.",
+        "en": "A schematic axis linking Damascus, Medina and Mecca. Actual roads and stops change over time. DEMO DATA: illustrative entry requiring verification.",
+        "ar": "محور تخطيطي بين دمشق والمدينة ومكة. تتغير الطرق الفعلية ومحطاتها عبر الزمن. بيانات تجريبية: مادة توضيحية تحتاج إلى التحقق."
+      },
+      "sources": [
+        "source-history"
+      ],
+      "certainty": "low"
+    }
+  ],
+  "sources": [
+    {
+      "id": "source-history",
+      "title": "History of Islam",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/History_of_Islam",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-umayyad",
+      "title": "Umayyad Caliphate",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Umayyad_Caliphate",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-abbasid",
+      "title": "Abbasid Caliphate",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Abbasid_Caliphate",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-cordoba",
+      "title": "Emirate of Córdoba",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Emirate_of_C%C3%B3rdoba",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-idrisid",
+      "title": "Idrisid dynasty",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Idrisid_dynasty",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-aghlabid",
+      "title": "Aghlabids",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Aghlabids",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-fatimid",
+      "title": "Fatimid Caliphate",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Fatimid_Caliphate",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-ottoman",
+      "title": "Ottoman Empire",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Ottoman_Empire",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-baghdad",
+      "title": "History of Baghdad",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/History_of_Baghdad",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-rushd",
+      "title": "Averroes",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Averroes",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-khaldun",
+      "title": "Ibn Khaldun",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Ibn_Khaldun",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    },
+    {
+      "id": "source-idrisi",
+      "title": "Muhammad al-Idrisi",
+      "author": "Wikipedia contributors",
+      "publicationYear": null,
+      "type": "encyclopedia",
+      "url": "https://en.wikipedia.org/wiki/Muhammad_al-Idrisi",
+      "notes": {
+        "fr": "Point de départ documentaire à consulter. Ces notices et géométries DEMO n’ont pas fait l’objet d’une validation scientifique ; ce lien ne justifie pas leurs frontières.",
+        "en": "A suggested reference for further reading. These DEMO entries and geometries have not undergone scholarly validation; this link does not substantiate their boundaries.",
+        "ar": "مرجع مقترح للمطالعة. لم تخضع هذه المواد والهندسات التجريبية للتحقق العلمي؛ ولا يثبت هذا الرابط صحة حدودها."
+      }
+    }
+  ]
+}

@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Athar · Atlas historique",
+    "slug": "athar-historical-atlas",
+    "version": "0.1.0",
+    "orientation": "default",
+    "userInterfaceStyle": "light",
+    "scheme": "athar",
+    "backgroundColor": "#faf9f5",
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "org.atharatlas.mobile"
+    },
+    "android": {
+      "package": "org.atharatlas.mobile",
+      "permissions": ["INTERNET"],
+      "adaptiveIcon": { "backgroundColor": "#234d3f" }
+    }
+  }
+}

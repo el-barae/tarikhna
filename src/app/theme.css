@@ -1,0 +1,118 @@
+:root {
+  color-scheme: light;
+  --surface: #fcfbf7;
+  --surface-soft: #f0f2e8;
+  --surface-raised: #fffefa;
+  --accent: #527c59;
+  --on-accent: #fffef5;
+}
+
+.theme-toggle {border:1px solid var(--line);color:var(--ink);background:var(--surface-soft)}
+.theme-toggle:hover {background:var(--line)}
+.theme-select-label {flex:1}
+.header-actions {gap:11px}
+.timeline-periods {overflow-x:auto;scrollbar-width:thin}
+.territory-label {color:var(--territory-color)}
+
+/* A muted forest palette shared by the atlas, dialogs and contribution studio. */
+html[data-theme='dark'] {
+  color-scheme:dark;
+  --ink:#e3e9dc;
+  --green:#a8c6a1;
+  --green-dark:#294d3a;
+  --muted:#a4b3a5;
+  --paper:#15231f;
+  --line:#35483c;
+  --gold:#d2b67f;
+  --surface:#1d2d26;
+  --surface-soft:#263a2e;
+  --surface-raised:#23362c;
+  --accent:#92b987;
+  --on-accent:#122119;
+}
+html[data-theme='dark'] ::selection {background:#476944;color:#f4f6e9}
+html[data-theme='dark'] :is(.topbar,.timeline-panel,.bottom-bar,.loading-screen) {background:var(--paper);border-color:var(--line)}
+html[data-theme='dark'] :is(.explore-sidebar,.detail-panel,.dialog,.search-results,.legend-card,.map-tools,.mobile-explore,.map-topline) {background:var(--surface);border-color:var(--line);box-shadow:0 5px 24px #0003}
+html[data-theme='dark'] .map-stage {background:#101d24}
+html[data-theme='dark'] .map-vignette {box-shadow:inset 0 0 100px #07191225}
+html[data-theme='dark'] :is(.sidebar-intro h1,.dialog-header h2,.detail-panel h2,.time-readout input,.map-summary strong,.library-results strong) {color:var(--ink)}
+html[data-theme='dark'] :is(.sidebar-intro p,.sidebar-intro .eyebrow,.period-picker label,.layer,.layer-symbol,.source-link,.legend-card>button,.legend-card>span,.map-tools>button,.map-topline,.map-summary>div>span,.demo-map-tag,.compass-rose,.bottom-bar,.small-brand,.global-search,.desktop-nav button,.timeline-heading>div:first-child>span,.playback-controls label,.timeline-ticks button,.timeline-periods button,.time-readout>.eyebrow,.time-readout>div>span,.time-readout>small>span,.detail-top>.eyebrow,.detail-meta small,.detail-panel>p,.detail-sources a,.detail-sources small,.about-content p,.about-attribution,.library-content>p,.library-results small,.library-tabs button,.library-results>button>svg,.settings-user small,.text-link,.loading-screen p) {color:var(--muted)}
+html[data-theme='dark'] :is(.eyebrow,.map-summary>.eyebrow,.legend-title,.legend-card small) {color:#a8b4a0}
+html[data-theme='dark'] :is(.layer.active,.desktop-nav button.active,.timeline-periods button.current) {color:#b5d6a5}
+html[data-theme='dark'] :is(.brand-mark,.global-search,.period-picker>div,.section-heading>span,.playback-controls select,.settings-content select,.library-search,.library-icon,.detail-note) {background:var(--surface-soft);border-color:var(--line);color:var(--ink)}
+html[data-theme='dark'] :is(.brand-arabic,.about-symbol,.detail-ornament,.event-year,.time-readout>small,.bottom-bar>button,.library-year) {color:var(--gold)}
+html[data-theme='dark'] :is(.global-search input::placeholder,.library-search input::placeholder) {color:var(--muted)}
+html[data-theme='dark'] :is(.period-picker select,.playback-controls select,.settings-content select,.language-select select) {color:var(--ink)}
+html[data-theme='dark'] select option {background:var(--surface);color:var(--ink)}
+html[data-theme='dark'] :is(.period-picker,.layer-panel,.time-readout,.detail-meta,.detail-sources a,.dialog-header,.settings-content>label,.library-results>button,.legend-card small,.library-tabs button,.related-section button) {border-color:var(--line)}
+html[data-theme='dark'] :is(.global-search kbd,.custom-checkbox) {border-color:#60765a;color:var(--muted)}
+html[data-theme='dark'] :is(.brand-divider,.map-topline-divider,.map-tools>span,.detail-ornament>span,.period-track,.loading-line) {background:var(--line)}
+html[data-theme='dark'] :is(.layer:hover,.map-tools>button:hover,.icon-button:hover,.search-results>button.focused,.search-results>button:hover,.library-results>button:hover) {background:var(--surface-soft)}
+html[data-theme='dark'] :is(.primary-button,.account-button,.play-button,.layer.active .custom-checkbox,.library-tabs button.active,.timeline-year-flag) {background:#456b45;color:#f4f5e6;border-color:#688957}
+html[data-theme='dark'] .timeline-year-flag:after {border-top-color:#456b45}
+html[data-theme='dark'] .timeline-track input::-webkit-slider-thumb {background:#b2cf96;border-color:#213626;box-shadow:0 0 0 1px #89a573}
+html[data-theme='dark'] .timeline-track input::-moz-range-thumb {background:#b2cf96;border-color:#213626;box-shadow:0 0 0 1px #89a573}
+html[data-theme='dark'] .period-track>span {opacity:.8}
+html[data-theme='dark'] .detail-note {color:#d4c299}
+html[data-theme='dark'] .territory-label {color:color-mix(in srgb,var(--territory-color),#eef5dd 40%);text-shadow:0 1px 4px #102019,0 0 10px #102019}
+html[data-theme='dark'] .city-label {color:#d8e6c9;text-shadow:0 1px 3px #102019,0 0 5px #102019}
+html[data-theme='dark'] .city-dot {background:#a0c9a7;border-color:#172823;box-shadow:0 0 0 1px #849d75}
+html[data-theme='dark'] .city-label.capital .city-dot {background:#d5b37c;box-shadow:0 0 0 1px #d5b37c}
+html[data-theme='dark'] .maplibregl-ctrl-attrib {background:#182923e8!important;color:#adbca7}
+html[data-theme='dark'] .maplibregl-ctrl-attrib a {color:#c7d5bb}
+html[data-theme='dark'] .maplibregl-ctrl-attrib-button {filter:invert(1)}
+html[data-theme='dark'] .maplibregl-ctrl-scale {color:#aebfa4!important;border-color:#7b9070!important}
+html[data-theme='dark'] :is(.dialog-backdrop,.studio-backdrop,.studio-inner-backdrop) {background:#07120de0;color:var(--ink)}
+
+html[data-theme='dark'] :is(.studio-dialog,.login-dialog,.review-dialog,.version-content,.export-dropdown) {background:var(--surface);border-color:var(--line);color:var(--ink)}
+html[data-theme='dark'] :is(.studio-body,.json-editor) {background:var(--paper)}
+html[data-theme='dark'] :is(.studio-navigation,.studio-footer,.entity-sidebar,.territory-item,.json-toolbar,.version-comparison,.delta-counts>div,.new-user-form,.studio-avatar,.workflow-strip b,.studio-secondary,.export-dropdown button,.entity-list button.selected) {background:var(--surface-soft);border-color:var(--line);color:var(--ink)}
+html[data-theme='dark'] :is(.studio-header,.studio-navigation,.studio-footer,.entity-sidebar,.metadata-editor,.relation-fields,.territory-fields,.delete-entity,.json-editor,.json-toolbar,.json-editor-hint,.workflow-strip,.version-card,.delta-collections>div,.user-list article,.login-setup,.route-coordinates,.studio-import-export) {border-color:var(--line)}
+html[data-theme='dark'] :is(.studio-header h2,.entity-form-heading h3,.review-dialog h3,.user-panel h3,.login-dialog h2,.geometry-heading strong) {color:var(--ink)}
+html[data-theme='dark'] :is(.studio-header p,.studio-account small,.studio-close,.studio-navigation nav button,.studio-import-export>button,.studio-footer small,.studio-empty,.studio-field,.entity-form label,.metadata-editor,.metadata-editor label,.review-dialog label,.new-user-form label,.compare-selects label,.geometry-actions label,.entity-list button,.entity-list small,.relation-fields small,.geometry-heading span,.geometry-editor p,.geometry-note,.geometry-attribution,.json-toolbar button,.file-chip,.json-editor-hint,.workflow-strip>span,.workflow-strip i,.compare-selects>span,.version-content p,.version-content small,.delta-counts span,.delta-collections>div,.delta-preview>p,.review-dialog>p,.user-list small,.login-dialog>p,.login-dialog form>label,.login-setup,.login-setup code) {color:var(--muted)}
+html[data-theme='dark'] :is(.studio-eyebrow,.login-symbol) {color:var(--gold)}
+html[data-theme='dark'] :is(.studio-dialog input:not([type=checkbox]),.studio-dialog textarea,.studio-dialog select,.login-dialog input,.export-dropdown input) {background:var(--paper);color:var(--ink);border-color:var(--line)}
+html[data-theme='dark'] .studio-dialog input[readonly] {background:var(--surface-soft);color:var(--muted)}
+html[data-theme='dark'] :is(.studio-close:hover,.studio-secondary:hover,.entity-list button:hover,.studio-navigation nav button span) {background:#354b37;color:var(--ink)}
+html[data-theme='dark'] :is(.studio-navigation nav button.active,.entity-list button.selected,.studio-text-button,.version-actions button,.version-actions .publish-button) {color:#b1d39f}
+html[data-theme='dark'] .studio-navigation nav button.active {border-color:var(--accent)}
+html[data-theme='dark'] .studio-primary {background:#527647;border-color:#668850;color:#fcfde9}
+html[data-theme='dark'] .studio-primary:hover {background:#628653}
+html[data-theme='dark'] :is(.studio-message.success,.status-published,.status-approved) {background:#294332;border-color:#45674a;color:#c0deae}
+html[data-theme='dark'] :is(.studio-message.error,.validation-errors) {background:#472e26;border-color:#6c4a39;color:#f0bf9e}
+html[data-theme='dark'] .validation-errors li {border-color:#6c4a39}
+html[data-theme='dark'] .studio-text-button.danger {color:#e8b092}
+html[data-theme='dark'] .version-status {background:#354632;color:#c4d1b1}
+html[data-theme='dark'] .status-review {background:#4b422d;color:#e6d0a2}
+html[data-theme='dark'] .version-dot {background:var(--surface);border-color:var(--accent)}
+html[data-theme='dark'] .delta-added strong {color:#b1d39f}
+html[data-theme='dark'] .delta-removed strong {color:#e8b092}
+html[data-theme='dark'] .delta-modified strong {color:#e4ca8c}
+html[data-theme='dark'] .delta-unchanged strong {color:#a9b79e}
+html[data-theme='dark'] .json-editor .cm-editor {background:var(--paper);color:#e0e9d6}
+html[data-theme='dark'] .json-editor .cm-gutters {background:var(--surface);color:#a6b498}
+html[data-theme='dark'] .json-editor :is(.cm-activeLineGutter,.cm-activeLine,.cm-panels,.cm-tooltip) {background:var(--surface-soft);color:var(--ink)}
+html[data-theme='dark'] .json-editor .cm-cursor {border-left-color:#e2d0a0}
+html[data-theme='dark'] .json-editor .cm-selectionBackground {background:#425d4a!important}
+html[data-theme='dark'] .geometry-editor svg {background:#101d24;border-color:var(--line)}
+html[data-theme='dark'] .geometry-land {fill:#2d443a;stroke:#59715b}
+html[data-theme='dark'] .geometry-grid {stroke:#a5c3ae30}
+html[data-theme='dark'] .geometry-coordinates {fill:#b2c6ab}
+html[data-theme='dark'] .geometry-territory {fill:#b1d49a30;stroke:#bbd7a9}
+html[data-theme='dark'] .geometry-vertex {stroke:#b5cf9d}
+
+/* Make space for the theme button and larger labels on compact screens. */
+@media(max-width:850px) {
+  .topbar {gap:14px}
+  .header-actions {gap:8px}
+  .time-readout {min-width:140px;width:140px}
+}
+@media(max-width:540px) {
+  .topbar {gap:9px;padding-inline:12px}
+  .header-actions {gap:7px}
+  .theme-toggle {width:29px;height:30px}
+  .global-search {padding-inline:0}
+  .time-readout {width:auto;min-width:0}
+  .bottom-bar>span:last-child {max-width:85px;text-align:end;line-height:1.4}
+  .bottom-bar>button {letter-spacing:.2px}
+}
