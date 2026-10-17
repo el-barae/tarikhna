@@ -1,4 +1,4 @@
-# Architecture d’Athar
+# Architecture d’Atharahom
 
 ## Organisation
 
@@ -80,6 +80,8 @@ Le stockage est lu et décodé en entier à chaque opération. Une écriture sé
 
 Définir `DATABASE_URL` active l’adaptateur PostgreSQL. Il initialise `db/schema.sql` au premier accès, avec un verrou consultatif pour coordonner plusieurs processus. L’extension PostGIS doit être installable par le rôle de migration. Pour un déploiement avec un rôle applicatif restreint, appliquer le schéma auparavant.
 
+Neon est compatible : utiliser sa chaîne de connexion (`sslmode=require`), y compris l’hôte `-pooler`. L’initialisation du schéma utilise un verrou transactionnel (`pg_advisory_xact_lock`), compatible avec le pooler en mode transaction, et le pool tolère la fermeture des connexions inactives par le fournisseur. L’authentification (utilisateurs, sessions, limitation des tentatives) est stockée dans les mêmes tables et ne nécessite aucune configuration supplémentaire.
+
 Les tables `history_users`, `history_sessions`, `history_datasets` et `history_versions` conservent les comptes, sessions, pointeur public et snapshots JSONB. `history_features` contient les géométries de chaque nouvelle version en SRID 4326, avec un index GiST. Le contenu d’une version déjà stockée n’est pas réécrit ; seuls son statut et son historique de transitions évoluent.
 
 Une opération utilise une transaction et un verrou consultatif. L’adaptateur actuel charge les versions complètes en mémoire et synchronise les métadonnées lors d’une mutation. Il peut donc gérer un stockage persistant partagé, mais ce n’est pas encore un moteur de requêtes spatiales à grande échelle. Les endpoints n’interrogent pas encore l’index GiST pour un viewport ou une période ; ils exposent le dataset publié complet. L’historique n’est pas paginé. Pour un grand volume de versions, remplacer ce chargement global par des requêtes ciblées, puis ajouter pagination, filtre géographique et tuiles vectorielles.
@@ -112,6 +114,7 @@ Le Compose exige `POSTGRES_PASSWORD`, publie le port uniquement sur `127.0.0.1` 
 | `HISTORY_STORE_PATH` | Chemin du fichier local ; défaut `data/.store.json` |
 | `APP_ORIGIN` | Origine publique exacte, sans slash final ; défaut origine de la requête |
 | `TRUST_PROXY` | `true` uniquement si le proxy remplace `X-Forwarded-For` |
+| `DISABLE_AUTH` | `true` désactive l’authentification ; toute requête agit en administrateur local |
 | `ADMIN_EMAIL`, `ADMIN_PASSWORD` | Identifiants utilisés uniquement par le script de création d’administrateur |
 | `HISTORY_TEST_DATABASE_URL` | Base PostgreSQL jetable pour les tests d’intégration optionnels |
 | `EXPO_PUBLIC_WEB_URL` | URL HTTPS de l’atlas chargée par l’application mobile |

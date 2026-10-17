@@ -1,4 +1,4 @@
-# Athar · Android et iOS
+# Atharahom · Android et iOS
 
 Le MVP mobile est une application Expo / React Native qui ouvre l’interface responsive de l’atlas dans une WebView. Elle réutilise donc la carte, la timeline, les traductions, l’authentification et les écrans d’édition du Web. Le domaine TypeScript est également disponible dans `shared/history.ts` pour de futurs écrans natifs.
 

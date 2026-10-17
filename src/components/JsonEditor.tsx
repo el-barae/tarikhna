@@ -18,7 +18,7 @@ function completeFields(context: CompletionContext) {
   return { from: token.from, options: fields.map(label => ({ label, type: "property" })) };
 }
 
-export default function JsonEditor({ value, onChange, locale = "fr" }: { value: string; onChange: (value: string) => void; locale?: "fr" | "en" | "ar" }) {
+export default function JsonEditor({ value, onChange, locale = "ar" }: { value: string; onChange: (value: string) => void; locale?: "fr" | "en" | "ar" }) {
   const { theme } = useTheme();
   const editor = useRef<ReactCodeMirrorRef>(null);
   const extensions = useMemo(() => [json(), linter(jsonParseLinter()), lintGutter(), autocompletion({ override: [completeFields] })], []);

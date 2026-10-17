@@ -54,7 +54,7 @@ afterAll(async () => { vi.unstubAllEnvs(); await rm(directory, { recursive: true
 describe('server authorization and persistence', () => {
   it('serves only the public dataset and hides private routes from unauthenticated users', async () => {
     expect((await getDataset()).status).toBe(200);
-    expect(await (await me(request('/api/auth/me'))).json()).toEqual({ user: null });
+    expect(await (await me(request('/api/auth/me'))).json()).toEqual({ user: null, authDisabled: false });
     expect((await listVersions(request('/api/versions'))).status).toBe(401);
     expect((await exportDataset(request('/api/export'))).status).toBe(401);
     expect((await getUsers(request('/api/users', 'GET', undefined, editorCookie))).status).toBe(403);
@@ -66,6 +66,16 @@ describe('server authorization and persistence', () => {
     expect((await saveVersion(request('/api/versions', 'POST', {dataset:seed, baseVersionId:'obsolete-map'}, editorCookie))).status).toBe(409);
     expect((await (await listVersions(request('/api/versions', 'GET', undefined, editorCookie))).json()).versions).toHaveLength(before.versions.length);
     expect((await saveVersion(request('/api/versions', 'POST', {dataset:seed, baseVersionId:published.versionId}, editorCookie))).status).toBe(201);
+  });
+  it('bypasses authentication entirely when DISABLE_AUTH is enabled', async () => {
+    vi.stubEnv('DISABLE_AUTH', 'true');
+    try {
+      const identity = await (await me(request('/api/auth/me'))).json();
+      expect(identity.authDisabled).toBe(true);
+      expect(identity.user.role).toBe('administrator');
+      expect((await listVersions(request('/api/versions'))).status).toBe(200);
+      expect((await getUsers(request('/api/users'))).status).toBe(200);
+    } finally { vi.stubEnv('DISABLE_AUTH', ''); }
   });
   it('accepts local login when Next.js uses a wildcard bind address internally', async () => {
     vi.stubEnv('APP_ORIGIN', '');
@@ -166,7 +176,7 @@ describe('server authorization and persistence', () => {
     expect((await login(request('/api/auth/login', 'POST', { email: 'missing@example.org', password: 'wrong' }))).status).toBe(429);
     const cookie = await signIn('visitor@example.org');
     expect((await logout(request('/api/auth/logout', 'POST', undefined, cookie))).status).toBe(200);
-    expect(await (await me(request('/api/auth/me', 'GET', undefined, cookie))).json()).toEqual({ user: null });
+    expect(await (await me(request('/api/auth/me', 'GET', undefined, cookie))).json()).toEqual({ user: null, authDisabled: false });
   });
   it('serializes concurrent local updates without losing immutable versions', async () => {
     const before = await (await listVersions(request('/api/versions', 'GET', undefined, adminCookie))).json();

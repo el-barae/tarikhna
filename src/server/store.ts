@@ -62,18 +62,29 @@ async function withLocalStore<T>(callback: (store: Store) => T | Promise<T>): Pr
 async function getPool(): Promise<Pool> {
   if (!globals.historyPool) {
     const { Pool } = await import('pg');
-    globals.historyPool = new Pool({ connectionString: process.env.DATABASE_URL, max: 8 });
+    globals.historyPool = new Pool({
+      connectionString: process.env.DATABASE_URL,
+      max: 8,
+      connectionTimeoutMillis: 10_000,
+      idleTimeoutMillis: 30_000,
+    });
+    // Serverless providers such as Neon close idle connections; keep the process alive.
+    globals.historyPool.on('error', (error) => console.error('PostgreSQL idle client error:', error.message));
   }
   if (!globals.historySchema) {
     globals.historySchema = (async () => {
+      // Transaction-scoped lock also works through Neon/PgBouncer transaction pooling.
       const schema = await readFile(path.join(process.cwd(), 'db', 'schema.sql'), 'utf8');
       const client = await globals.historyPool!.connect();
       try {
-        await client.query('SELECT pg_advisory_lock(82462218)');
+        await client.query('BEGIN');
+        await client.query('SELECT pg_advisory_xact_lock(82462218)');
         await client.query(schema);
-      } finally {
-        try { await client.query('SELECT pg_advisory_unlock(82462218)'); } finally { client.release(); }
-      }
+        await client.query('COMMIT');
+      } catch (error) {
+        await client.query('ROLLBACK').catch(() => {});
+        throw error;
+      } finally { client.release(); }
     })().catch((error) => { globals.historySchema = undefined; throw error; });
   }
   await globals.historySchema;

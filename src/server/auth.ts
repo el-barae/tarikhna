@@ -7,12 +7,22 @@ export const SESSION_COOKIE = 'history_session';
 const SESSION_SECONDS = 7 * 24 * 60 * 60;
 const ranks: Record<Role, number> = { visitor: 0, editor: 1, administrator: 2 };
 
+/** Disable authentication entirely; every request acts as a local administrator. */
+export function isAuthDisabled(env: NodeJS.ProcessEnv = process.env): boolean {
+  return env.DISABLE_AUTH === 'true';
+}
+const AUTH_DISABLED_USER: User = {
+  id: 'auth-disabled', name: 'Accès libre', email: 'local@athar.invalid',
+  role: 'administrator', disabled: false, passwordHash: '', createdAt: new Date(0).toISOString(),
+};
+
 function sessionId(request: Request): string | null {
   const token = request.headers.get('cookie')?.split(';').map((part) => part.trim()).find((part) => part.startsWith(`${SESSION_COOKIE}=`))?.slice(SESSION_COOKIE.length + 1);
   if (!token || !/^[a-f0-9]{64}$/.test(token)) return null;
   return createHash('sha256').update(token).digest('hex');
 }
 export function currentUser(store: Store, request: Request): User | null {
+  if (isAuthDisabled()) return AUTH_DISABLED_USER;
   const id = sessionId(request);
   const session = id && store.sessions.find((item) => item.id === id && item.expiresAt > Date.now());
   return (session && store.users.find((user) => user.id === session.userId && !user.disabled)) || null;

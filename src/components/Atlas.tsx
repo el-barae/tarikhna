@@ -2,7 +2,7 @@
 
 import {useCallback, useEffect, useMemo, useRef, useState, type ReactNode} from 'react';
 import dynamic from 'next/dynamic';
-import {ArrowDownToLine, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Building2, Check, ChevronDown, ChevronLeft, ChevronRight, Compass, Crown, ExternalLink, Flag, Globe2, Info, Layers3, Library, LogOut, Map, Maximize2, Menu, Minus, Moon, Sun, Pencil, Navigation, Pause, Play, Plus, RotateCcw, Route, Search, Settings2, Share2, Shield, SlidersHorizontal, Sparkles, Swords, UserRound, UsersRound, X} from 'lucide-react';
+import {ArrowDownToLine, ArrowLeft, ArrowRight, ArrowUpRight, BookOpen, Building2, Check, ChevronDown, ChevronLeft, ChevronRight, Compass, Crown, ExternalLink, Flag, Globe2, Info, Layers3, Library, LogOut, Map, Maximize2, Menu, MessageCircle, Minus, Moon, Sun, Pencil, Navigation, Pause, Play, Plus, RotateCcw, Route, Search, Settings2, Share2, Shield, SlidersHorizontal, Sparkles, Swords, UserRound, UsersRound, X} from 'lucide-react';
 import {getActiveData, stateAt, capitalsAt, cityNameAt, eventPosition, polityAt, relatedEvents, sourceId, localized, searchDataset, validateDataset, type Dataset, type EntityKind, type Locale, type SearchResult} from '@history/core';
 import {dictionaries} from '@/lib/i18n';
 import {useTheme} from './ThemeProvider';
@@ -10,11 +10,15 @@ import type {ThemePreference} from '@/lib/theme';
 import type {Filters,MapHandle,Selection} from './HistoricalMap';
 import type {User} from './Studio';
 import {stateEditCopy} from './state-edit-copy';
+import {assistantCopy} from './assistant-copy';
+import LanguageMenu from './LanguageMenu';
+import './assistant.css';
 import './state-map-editor.css';
 
 const HistoricalMap=dynamic(()=>import('./HistoricalMap'),{ssr:false});
 const StateMapEditor=dynamic(()=>import('./StateMapEditor'),{ssr:false});
 const Studio=dynamic(()=>import('./Studio').then(m=>m.default),{ssr:false});
+const AssistantPanel=dynamic(()=>import('./AssistantPanel'),{ssr:false});
 const LoginDialog=dynamic(()=>import('./LoginDialog').then(m=>m.default),{ssr:false});
 const initialFilters:Filters={states:true,dynasties:true,cities:true,events:true,battles:false,routes:false,people:false};
 const layerIcons={states:Flag,dynasties:Crown,cities:Building2,events:Sparkles,battles:Swords,routes:Route,people:UsersRound};
@@ -51,9 +55,12 @@ export default function Atlas(){
   const [baseVersionId,setBaseVersionId]=useState('');
   const [mapEditor,setMapEditor]=useState(false);
   const [editAfterLogin,setEditAfterLogin]=useState(false);
+  const [assistantOpen,setAssistantOpen]=useState(false);
+  const [assistantOpened,setAssistantOpened]=useState(false);
+  const [assistantAfterLogin,setAssistantAfterLogin]=useState(false);
   const [studioHistory,setStudioHistory]=useState(false);
   const [error,setError]=useState('');
-  const [locale,setLocale]=useState<Locale>('fr');
+  const [locale,setLocale]=useState<Locale>('ar');
   const [requestedYear,setYear]=useState(800);
   const [yearEdit,setYearEdit]=useState({year:800,value:'800'});
   const [filters,setFilters]=useState<Filters>(initialFilters);
@@ -67,17 +74,19 @@ export default function Atlas(){
   const [panel,setPanel]=useState<'about'|'library'|'settings'|'login'|'studio'|null>(null);
   const [sidebarOpen,setSidebarOpen]=useState(false);
   const [user,setUser]=useState<User|null>(null);
+  const [authDisabled,setAuthDisabled]=useState(false);
   const [borders,setBorders]=useState(false);
   const [toast,setToast]=useState('');
   const [libraryQuery,setLibraryQuery]=useState('');
   const [libraryKind,setLibraryKind]=useState<EntityKind|'all'>('all');
   const mapRef=useRef<MapHandle>(null);
   const searchRef=useRef<HTMLInputElement>(null);
+  const assistantButtonRef=useRef<HTMLButtonElement>(null);
   const t=dictionaries[locale];
   const reload=useCallback(async()=>{
     try{setError('');const r=await fetch('/api/dataset',{cache:'no-store'});if(!r.ok)throw new Error();const body=await r.json();const validation=validateDataset(body.dataset);if(!validation.valid)throw new Error();setDataset(validation.data!);setBaseVersionId(body.versionId);setSelection(null);setPeriodId('all');setPlaying(false);}catch{setError('dataset');}
   },[]);
-  useEffect(()=>{void reload();fetch('/api/auth/me').then(r=>r.json()).then(b=>setUser(b.user)).catch(()=>{});const params=new URLSearchParams(window.location.search);const y=parsedYear(params.get('year')??'');if(y!==null)setYear(y);const l=params.get('lang')??localStorage.getItem('athar-locale');if(l==='fr'||l==='en'||l==='ar')setLocale(l);},[reload]);
+  useEffect(()=>{void reload();fetch('/api/auth/me').then(r=>r.json()).then(b=>{setUser(b.user);setAuthDisabled(!!b.authDisabled);}).catch(()=>{});const params=new URLSearchParams(window.location.search);const y=parsedYear(params.get('year')??'');if(y!==null)setYear(y);const l=params.get('lang')??localStorage.getItem('athar-locale');if(l==='fr'||l==='en'||l==='ar')setLocale(l);},[reload]);
   useEffect(()=>{document.documentElement.lang=locale;document.documentElement.dir=locale==='ar'?'rtl':'ltr';localStorage.setItem('athar-locale',locale);},[locale]);
   useEffect(()=>{const handle=(e:KeyboardEvent)=>{if((e.metaKey||e.ctrlKey)&&e.key==='k'){e.preventDefault();searchRef.current?.focus();setSearchOpen(true);}if(e.key==='Escape'){setSearchOpen(false);setSelection(null);setSidebarOpen(false);}};window.addEventListener('keydown',handle);return()=>window.removeEventListener('keydown',handle);},[]);
   useEffect(()=>{if(!toast)return;const timeout=setTimeout(()=>setToast(''),3000);return()=>clearTimeout(timeout);},[toast]);
@@ -139,18 +148,21 @@ export default function Atlas(){
   const startEditing=()=>{if(!dataset?.states.length){setToast(t.noActive);return;}setPlaying(false);setSidebarOpen(false);if(accessibleEditor)setMapEditor(true);else if(user)setToast(stateEditCopy[locale].permission);else {setEditAfterLogin(true);setPanel('login');}};
   const share=async()=>{const url=new URL(window.location.href);url.searchParams.set('year',String(year));url.searchParams.set('lang',locale);try{await navigator.clipboard.writeText(url.toString());setToast(t.copied);}catch{setToast(url.toString());}};
   const closePanel=useCallback(()=>setPanel(null),[]);
+  const closeAssistant=useCallback(()=>setAssistantOpen(false),[]);
+  const openAssistant=()=>{setAssistantOpened(true);setAssistantOpen(true);setPanel(null);setPlaying(false);setSearchOpen(false);setSidebarOpen(false);};
+  const assistantLabel=selected?localized('title' in selected?selected.title:'activeFrom' in selected?cityNameAt(selected,year):selected.name,locale):null;
 
-  if(!dataset)return <main className="loading-screen"><div className="brand-mark"><Compass size={34}/></div><h1>athar<span>أثر</span></h1><p>{error?t.failed:t.loading}</p>{error?<button className="primary-button" onClick={reload}>{t.retry}</button>:<div className="loading-line"/>}</main>;
+  if(!dataset)return <main className="loading-screen"><div className="brand-mark"><Compass size={34}/></div><h1>atharahom<span>آثارهم</span></h1><p>{error?t.failed:t.loading}</p>{error?<button className="primary-button" onClick={reload}>{t.retry}</button>:<div className="loading-line"/>}</main>;
 
-  return <><main inert={mapEditor||undefined} className="atlas-app" dir={locale==='ar'?'rtl':'ltr'}>
+  return <><main inert={mapEditor||assistantOpen||undefined} className="atlas-app" dir={locale==='ar'?'rtl':'ltr'}>
     <header className="topbar">
-      <a href="/" className="brand" aria-label="Athar"><div className="brand-mark"><Compass size={28} strokeWidth={1.4}/></div><div className="brand-word">athar<span className="brand-arabic">أثر</span><small>ATLAS HISTORIQUE</small></div></a>
+      <a href="/" className="brand" aria-label="Atharahom"><div className="brand-mark"><Compass size={28} strokeWidth={1.4}/></div><div className="brand-word">atharahom<span className="brand-arabic">آثارهم</span><small>ATLAS HISTORIQUE</small></div></a>
       <span className="brand-divider"/>
       <nav className="desktop-nav" aria-label="Navigation"><button className={!panel?'active':''} onClick={()=>setPanel(null)}><Map size={16}/>{t.explore}</button><button className={panel==='library'?'active':''} onClick={()=>setPanel('library')}><BookOpen size={16}/>{t.library}</button><button onClick={()=>setPanel('about')}>{t.about}</button></nav>
       <div className="global-search" onBlur={e=>{if(!e.currentTarget.contains(e.relatedTarget))setSearchOpen(false);}}><Search size={17}/><input ref={searchRef} value={query} onChange={e=>{setQuery(e.target.value);setSearchOpen(true);setSearchIndex(0);}} onFocus={()=>setSearchOpen(true)} placeholder={t.searchShort} aria-label={t.search} aria-expanded={searchOpen&&!!query} aria-controls="search-results" role="combobox" autoComplete="off" onKeyDown={e=>{if(e.key==='ArrowDown'){e.preventDefault();setSearchIndex(i=>Math.max(0,Math.min(i+1,searchResults.length-1)));}if(e.key==='ArrowUp'){e.preventDefault();setSearchIndex(i=>Math.max(i-1,0));}if(e.key==='Enter'){if(parsedYear(query)!==null){jumpToYear(parsedYear(query)!);}else if(searchResults[searchIndex])selectEntity(searchResults[searchIndex],true);}}}/><kbd>⌘ K</kbd>
         {searchOpen&&query&&<div className="search-results" id="search-results" role="listbox">{searchResults.length?searchResults.map((r,i)=>{const Icon=kindIcons[r.kind];return <button role="option" aria-selected={i===searchIndex} className={i===searchIndex?'focused':''} key={`${r.kind}-${r.id}`} onMouseDown={e=>e.preventDefault()} onClick={()=>selectEntity(r,true)}><span className="result-icon"><Icon size={16}/></span><span>{r.label}<small>{r.year} · {r.description.slice(0,70)}…</small></span><ArrowUpRight size={15}/></button>;}):<p>{t.noResult}{parsedYear(query)!==null&&<button onMouseDown={e=>e.preventDefault()} onClick={()=>jumpToYear(parsedYear(query)!)}>{t.atYear} {query} <ArrowRight size={15}/></button>}</p>}</div>}
       </div>
-      <div className="header-actions"><div className="language-select"><Globe2 size={16}/><select aria-label="Langue / Language / اللغة" value={locale} onChange={e=>setLocale(e.target.value as Locale)}><option value="fr">FR</option><option value="en">EN</option><option value="ar">العربية</option></select><ChevronDown size={12}/></div><button className="icon-button theme-toggle" aria-label={theme==='dark'?t.switchLight:t.switchDark} title={theme==='dark'?t.switchLight:t.switchDark} onClick={()=>setPreference(theme==='dark'?'light':'dark')}>{theme==='dark'?<Sun size={18}/>:<Moon size={18}/>}</button><button className="icon-button settings-button" aria-label={t.settings} onClick={()=>setPanel('settings')}><Settings2 size={18}/></button><button className="account-button" onClick={()=>setPanel(accessibleEditor?'studio':'login')}><UserRound size={16}/><span>{accessibleEditor?t.studio:t.account}</span></button></div>
+      <div className="header-actions"><button ref={assistantButtonRef} className="assistant-launcher" aria-label={assistantCopy[locale].button} title={assistantCopy[locale].title} aria-haspopup="dialog" onClick={openAssistant}><MessageCircle size={18}/><span>{assistantCopy[locale].button}</span></button><LanguageMenu locale={locale} onChange={setLocale} label="Langue / Language / اللغة"/><button className="icon-button theme-toggle" aria-label={theme==='dark'?t.switchLight:t.switchDark} title={theme==='dark'?t.switchLight:t.switchDark} onClick={()=>setPreference(theme==='dark'?'light':'dark')}>{theme==='dark'?<Sun size={18}/>:<Moon size={18}/>}</button><button className="icon-button settings-button" aria-label={t.settings} onClick={()=>setPanel('settings')}><Settings2 size={18}/></button><button className="account-button" onClick={()=>setPanel(accessibleEditor?'studio':'login')}><UserRound size={16}/><span>{accessibleEditor?t.studio:t.account}</span></button></div>
     </header>
 
     <section className="map-stage" aria-label={t.explore}>
@@ -187,10 +199,10 @@ export default function Atlas(){
     <div className="bottom-bar"><span><span className="small-brand">athar</span>{t.tagline}</span><button onClick={()=>setPanel('about')}><span className="gold-dot"/>{dataset.metadata.status==='demo'?t.demo:t.low}<Info size={12}/></button><span>v{dataset.metadata.version} <span className="bottom-dot">·</span> {dataset.sources.length} {t.sourceCount}</span></div>
 
     {panel==='about'&&<Dialog title={t.aboutTitle} onClose={closePanel}><div className="about-content"><div className="about-symbol"><Compass size={65} strokeWidth={0.8}/></div><p>{t.aboutBody}</p><h3>{t.methodTitle}</h3><p>{t.methodBody}</p><h3>{t.demoTitle}</h3><p>{t.demoNote}</p><a href="/islamic-history.json" target="_blank" rel="noreferrer" className="text-link"><ArrowDownToLine size={16}/>islamic-history.json<ArrowUpRight size={16}/></a><h3>{t.workingBibliography}</h3><ul>{dataset.sources.filter(source=>source.verification==='bibliography').map(source=><li key={source.id}><a href={source.permanentUrl??source.url} target="_blank" rel="noreferrer">{source.title}</a><small> · {t.sourceToVerify}</small></li>)}</ul><div className="about-attribution">Fond géographique : <a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noreferrer">Natural Earth · domaine public</a></div></div></Dialog>}
-    {panel==='settings'&&<Dialog title={t.settings} onClose={closePanel}><div className="settings-content"><label><span className="theme-select-label">{t.appearance}</span><select aria-label={t.appearance} value={preference} onChange={e=>setPreference(e.target.value as ThemePreference)}><option value="system">{t.themeSystem}</option><option value="light">{t.themeLight}</option><option value="dark">{t.themeDark}</option></select></label><label>{t.modernBorders}<input type="checkbox" checked={borders} onChange={e=>setBorders(e.target.checked)}/></label><label><Globe2 size={16}/>Langue / Language / اللغة<select value={locale} onChange={e=>setLocale(e.target.value as Locale)}><option value="fr">Français</option><option value="en">English</option><option value="ar">العربية</option></select></label><button className="text-link" onClick={()=>{setFilters(initialFilters);setPeriodId('all');setYear(Math.max(extent.min,Math.min(extent.max,800)));setSelection(null);setPlaying(false);mapRef.current?.reset();closePanel();}}><RotateCcw size={16}/>{t.reset}</button>{user&&<div className="settings-user"><UserRound size={20}/><div>{user.name}<small>{user.email} · {user.role}</small></div><button className="icon-button" aria-label={t.logout} onClick={async()=>{await fetch('/api/auth/logout',{method:'POST'});setUser(null);closePanel();}}><LogOut size={18}/></button></div>}</div></Dialog>}
+    {panel==='settings'&&<Dialog title={t.settings} onClose={closePanel}><div className="settings-content"><label><span className="theme-select-label">{t.appearance}</span><select aria-label={t.appearance} value={preference} onChange={e=>setPreference(e.target.value as ThemePreference)}><option value="system">{t.themeSystem}</option><option value="light">{t.themeLight}</option><option value="dark">{t.themeDark}</option></select></label><label>{t.modernBorders}<input type="checkbox" checked={borders} onChange={e=>setBorders(e.target.checked)}/></label><label><Globe2 size={16}/>Langue / Language / اللغة<select value={locale} onChange={e=>setLocale(e.target.value as Locale)}><option value="fr">Français</option><option value="en">English</option><option value="ar">العربية</option></select></label><button className="text-link" onClick={()=>{setFilters(initialFilters);setPeriodId('all');setYear(Math.max(extent.min,Math.min(extent.max,800)));setSelection(null);setPlaying(false);mapRef.current?.reset();closePanel();}}><RotateCcw size={16}/>{t.reset}</button>{user&&<div className="settings-user"><UserRound size={20}/><div>{user.name}<small>{user.email} · {user.role}</small></div>{!authDisabled&&<button className="icon-button" aria-label={t.logout} onClick={async()=>{await fetch('/api/auth/logout',{method:'POST'});setUser(null);closePanel();}}><LogOut size={18}/></button>}</div>}</div></Dialog>}
     {panel==='library'&&<Dialog title={t.libraryTitle} onClose={closePanel} wide><div className="library-content"><p>{t.libraryIntro}</p><div className="library-search"><Search size={17}/><input aria-label={t.search} placeholder={t.search} value={libraryQuery} onChange={e=>setLibraryQuery(e.target.value)}/></div><div className="library-tabs">{(['all','state','city','event','person','route'] as const).map(k=><button key={k} className={libraryKind===k?'active':''} onClick={()=>setLibraryKind(k)}>{k==='all'?t.all:k==='state'?t.states:k==='city'?t.cities:k==='event'?t.events:k==='person'?t.people:t.routes}</button>)}</div><div className="library-results">{libraryResults.length?libraryResults.map(r=>{const Icon=kindIcons[r.kind];return <button key={`${r.kind}-${r.id}`} onClick={()=>{closePanel();selectEntity(r,true);}}><span className="library-icon"><Icon size={21}/></span><span><strong>{r.label}</strong><small>{r.description}</small></span><span className="library-year">{r.year}</span><ArrowUpRight size={17}/></button>;}):<p className="empty-state">{t.noResult}</p>}</div></div></Dialog>}
-    {panel==='login'&&<LoginDialog locale={locale} onClose={()=>{setEditAfterLogin(false);closePanel();}} onLogin={u=>{setUser(u);if(editAfterLogin){setPanel(null);setEditAfterLogin(false);if(u.role!=='visitor')setMapEditor(true);else setToast(stateEditCopy[locale].permission);}else setPanel(u.role==='visitor'?null:'studio');}}/>}
+    {panel==='login'&&<LoginDialog locale={locale} onClose={()=>{setEditAfterLogin(false);if(assistantAfterLogin){setAssistantAfterLogin(false);setAssistantOpen(true);}closePanel();}} onLogin={u=>{setUser(u);if(assistantAfterLogin){setAssistantAfterLogin(false);setAssistantOpen(true);setPanel(null);}else if(editAfterLogin){setPanel(null);setEditAfterLogin(false);if(u.role!=='visitor')setMapEditor(true);else setToast(stateEditCopy[locale].permission);}else setPanel(u.role==='visitor'?null:'studio');}}/>}
     {panel==='studio'&&user&&<Studio initialPanel={studioHistory?'history':'visual'} dataset={dataset} user={user} locale={locale} onClose={()=>{setStudioHistory(false);closePanel();}} onPublished={()=>void reload()}/>}
     {toast&&<div className="toast" role="status"><Check size={16}/>{toast}</div>}
-  </main>{mapEditor&&accessibleEditor&&<StateMapEditor dataset={dataset} baseVersionId={baseVersionId} initialStateId={selection?.kind==='state'?selection.id:undefined} initialYear={year} locale={locale} onClose={()=>setMapEditor(false)} onReview={()=>{setMapEditor(false);setStudioHistory(true);setPanel('studio');}}/>}</>;
+  </main>{assistantOpened&&<AssistantPanel key={user?.id??'guest'} open={assistantOpen} locale={locale} year={year} selection={selected?selection:null} selectionLabel={assistantLabel} signedIn={!!user} returnFocusRef={assistantButtonRef} onClose={closeAssistant} onLogin={()=>{setAssistantOpen(false);setAssistantAfterLogin(true);setEditAfterLogin(false);setPanel('login');}}/>}{mapEditor&&accessibleEditor&&<StateMapEditor dataset={dataset} baseVersionId={baseVersionId} initialStateId={selection?.kind==='state'?selection.id:undefined} initialYear={year} locale={locale} onClose={()=>setMapEditor(false)} onReview={()=>{setMapEditor(false);setStudioHistory(true);setPanel('studio');}}/>}</>;
 }

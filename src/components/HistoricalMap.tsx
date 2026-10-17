@@ -53,7 +53,7 @@ const HistoricalMap = forwardRef<MapHandle,Props>(function HistoricalMap({datase
     if(!latest.current.editing&&window.innerWidth>850)instance.setPadding({left:260,right:0,top:0,bottom:0});
     instance.on('error',()=>{if(!instance.isStyleLoaded())setFailed(true);});
     instance.on('load',()=>setFailed(false));
-    instance.addControl(new maplibregl.AttributionControl({compact:true,customAttribution:'<a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth</a> · Athar'}),'bottom-right');
+    instance.addControl(new maplibregl.AttributionControl({compact:true,customAttribution:'<a href="https://www.naturalearthdata.com/" target="_blank" rel="noreferrer">Natural Earth</a> · Atharahom'}),'bottom-right');
     instance.addControl(new maplibregl.ScaleControl({maxWidth:90,unit:'metric'}),'bottom-right');
     instance.on('load',()=>{
       instance.addSource('territories',{type:'geojson',data:empty});

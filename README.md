@@ -1,4 +1,4 @@
-# Athar · أثر
+# Atharahom · آثارهم
 
 Un atlas interactif de l’histoire islamique : géographie, chronologie, notices et sources, alimentés par un dataset JSON versionné.
 
@@ -36,6 +36,13 @@ Cliquer sur **Se connecter**, puis accéder à **Espace d’édition**. Dans **U
 - Thèmes clair et sombre : bouton soleil/lune, préférence mémorisée, option « Système » dans les préférences.
 
 Les dates de début et de fin sont **incluses**. Un événement limité à une année apparaît uniquement cette année-là. Les personnages sont localisés à leur ville de naissance renseignée. La conversion hégirienne affichée est indicative.
+
+### Assistant IA
+
+Le bouton **Assistant** ouvre une conversation propulsée par Claude sur Amazon Bedrock. Il utilise
+l’année et la sélection courantes, recherche dans Makteb et affiche les références retrouvées.
+Tous les comptes connectés peuvent l’utiliser. Renseigner la région AWS et le modèle Bedrock
+côté serveur ; voir [la configuration de l’assistant](./docs/ASSISTANT.md).
 
 ### Contribuer
 
@@ -129,6 +136,20 @@ docker compose -f db/docker-compose.yml up -d
 La configuration Compose exige `POSTGRES_PASSWORD`. Copier `.env.example` en `.env.local`, renseigner la connexion `DATABASE_URL` correspondant au port **5433** par défaut, puis créer l’administrateur avec `npm run setup`. Le CLI et Next.js lisent le même fichier d’environnement. Le compte PostgreSQL doit pouvoir créer l’extension PostGIS lors de l’initialisation.
 
 Ce choix démarre un stockage distinct ; il ne migre pas automatiquement les comptes et versions du stockage local. Les détails de déploiement, index, transactions, sauvegardes et limites se trouvent dans [`docs/ARCHITECTURE.md`](./docs/ARCHITECTURE.md).
+
+### Neon
+
+Un projet [Neon](https://neon.tech) convient : c’est PostgreSQL, et l’extension PostGIS est disponible. Dans le tableau de bord Neon, copier la chaîne de connexion (elle contient `sslmode=require`) et la placer dans `.env.local` :
+
+```dotenv
+DATABASE_URL=postgresql://user:password@ep-xxx-pooler.eu-central-1.aws.neon.tech/neondb?sslmode=require
+APP_ORIGIN=https://votre-domaine.example
+TRUST_PROXY=true
+```
+
+Puis créer l’administrateur : `npm run setup -- --email vous@example.org --password "une phrase de passe longue"`. Le schéma (`db/schema.sql`), les comptes, sessions et tentatives de connexion sont créés dans Neon au premier accès. Les connexions inactives sont libérées par Neon ; le pool les recrée automatiquement.
+
+Pour un rôle applicatif restreint, appliquer `db/schema.sql` manuellement (avec un rôle autorisé à créer l’extension PostGIS) avant de démarrer l’application. Ne pas réutiliser une base locale existante sans migrer le fichier `data/.store.json` : les deux stockages sont indépendants.
 
 ## Android et iOS
 

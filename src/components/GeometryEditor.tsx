@@ -19,7 +19,7 @@ function loadLand() {
 }
 
 /** Edits the exterior ring; interior rings remain intact. Coordinates use WGS84. */
-export default function GeometryEditor({ geometry, onChange, locale = "fr" }: { geometry: Polygon; onChange: (geometry: Polygon) => void; locale?: "fr" | "en" | "ar" }) {
+export default function GeometryEditor({ geometry, onChange, locale = "ar" }: { geometry: Polygon; onChange: (geometry: Polygon) => void; locale?: "fr" | "en" | "ar" }) {
   const svg = useRef<SVGSVGElement>(null);
   const [land, setLand] = useState<string[]>([]);
   useEffect(() => { let mounted = true; loadLand().then(paths => { if (mounted) setLand(paths); }); return () => { mounted = false; }; }, []);

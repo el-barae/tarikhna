@@ -46,3 +46,9 @@ pour autoriser une origine.
 Si `APP_ORIGIN` est défini, il doit correspondre exactement à l’adresse utilisée
 dans le navigateur, y compris le protocole et le port, sans chemin ni slash final.
 Après une modification de cette variable, redémarrer le serveur Next.js.
+
+## Assistant IA
+
+L’assistant utilise les comptes existants et accepte les trois rôles. La configuration
+Amazon Bedrock est décrite dans [docs/ASSISTANT.md](../docs/ASSISTANT.md). Les conversations
+ne sont pas conservées dans la base ; seul le compteur de requêtes par compte est enregistré.

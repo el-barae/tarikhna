@@ -18,7 +18,7 @@ export default function App() {
     <SafeAreaView style={styles.container}>
       {!ready ? <View style={styles.message}>
         <Text style={styles.symbol}>✧</Text>
-        <Text style={styles.title}>Athar</Text>
+        <Text style={styles.title}>Atharahom</Text>
         <Text style={styles.body}>Configurez EXPO_PUBLIC_WEB_URL avec l’adresse HTTPS de votre atlas, puis redémarrez Expo.</Text>
       </View> : failed ? <View style={styles.message}>
         <Text style={styles.title}>L’atlas est indisponible</Text>

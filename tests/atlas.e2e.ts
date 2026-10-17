@@ -38,7 +38,8 @@ test('Arabic RTL and mobile navigation remain usable without overflow',async({pa
   await page.getByRole('checkbox',{name:'المدن التاريخية'}).uncheck();
   await page.locator('.mobile-explore').click();
   expect(await page.evaluate(()=>document.documentElement.scrollWidth<=window.innerWidth)).toBe(true);
-  await page.locator('.language-select select').selectOption('en');
+  await page.locator('.language-menu-button').click();
+  await page.locator('.language-menu-list button').filter({hasText:'English'}).click();
   await expect(page.locator('html')).toHaveAttribute('dir','ltr');
   await expect(page.locator('.time-readout .eyebrow')).toHaveText('The world in');
   await page.reload();

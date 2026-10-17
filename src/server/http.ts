@@ -12,12 +12,13 @@ export function sameOrigin(request: Request): void {
     throw new HttpError(403, 'Cette requête doit provenir de l’application.');
   }
 }
-export async function readJson(request: Request): Promise<Record<string, unknown>> {
+export async function readJson(request: Request, maxBodyBytes = MAX_BODY_BYTES): Promise<Record<string, unknown>> {
   sameOrigin(request);
   if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) {
     throw new HttpError(415, 'Le contenu doit être au format application/json.');
   }
-  if (Number(request.headers.get('content-length')) > MAX_BODY_BYTES) throw new HttpError(413, 'Fichier trop volumineux (10 Mo maximum).');
+  const tooLarge = () => new HttpError(413, maxBodyBytes === MAX_BODY_BYTES ? 'Fichier trop volumineux (10 Mo maximum).' : 'Requête trop volumineuse.');
+  if (Number(request.headers.get('content-length')) > maxBodyBytes) throw tooLarge();
   const reader = request.body?.getReader();
   if (!reader) throw new HttpError(400, 'Le corps JSON est requis.');
   let bytes = 0;
@@ -27,7 +28,7 @@ export async function readJson(request: Request): Promise<Record<string, unknown
       const result = await reader.read();
       if (result.done) break;
       bytes += result.value.byteLength;
-      if (bytes > MAX_BODY_BYTES) { await reader.cancel(); throw new HttpError(413, 'Fichier trop volumineux (10 Mo maximum).'); }
+      if (bytes > maxBodyBytes) { await reader.cancel(); throw tooLarge(); }
       chunks.push(result.value);
     }
     const parsed: unknown = JSON.parse(Buffer.concat(chunks).toString('utf8'));
