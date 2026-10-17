@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { MAKTEB_ENDPOINT, MaktebRpcClient, validateToolArguments, type MaktebTool } from '../src/server/assistant/makteb';
+import { MAKTEB_ENDPOINT, MAKTEB_USER_AGENT, MaktebRpcClient, validateToolArguments, type MaktebTool } from '../src/server/assistant/makteb';
 
 const catalog: MaktebTool = { name: 'search_catalog', description: 'Search', inputSchema: { type: 'object', properties: { query: { type: 'string' }, tradition: { type: 'string', enum: ['sunni', 'shia'] }, limit: { type: 'number' } }, required: ['query'] } };
 const pages: MaktebTool = { name: 'read_book_pages', description: 'Read', inputSchema: { type: 'object', properties: { slug: { type: 'string' }, range: { type: 'string' }, page: { type: 'number' } }, required: ['slug'] } };
@@ -22,6 +22,8 @@ describe('Makteb JSON-RPC transport', () => {
     expect(calls.map(call => call.body.method)).toEqual(['initialize', 'tools/list', 'tools/call']);
     expect(calls.map(call => call.body.id)).toEqual([1, 2, 3]);
     expect(calls.every(call => call.url === MAKTEB_ENDPOINT && call.options?.method === 'POST' && call.options.redirect === 'error' && call.options.cache === 'no-store')).toBe(true);
+    // Cloudflare in front of api.makteb.org rate-limits requests without an identifying User-Agent.
+    expect(calls.every(call => (call.options?.headers as Record<string, string>)['User-Agent'] === MAKTEB_USER_AGENT)).toBe(true);
     expect(calls[1].options?.headers).toMatchObject({ 'MCP-Protocol-Version': '2024-11-05', 'Mcp-Session-Id': 'test-session' });
     expect(calls[2].body.params).toEqual({ name: 'read_book_pages', arguments: { slug: 'tarikh', range: '1-1' } });
   });
@@ -52,6 +54,25 @@ describe('Makteb JSON-RPC transport', () => {
     expect(error).toMatchObject({ status: 502, details: { code: 'ASSISTANT_MCP_UNAVAILABLE' } });
     expect(error.message).not.toContain('Private backend');
     expect(h.fetcher).toHaveBeenCalledOnce();
+  });
+
+  it('reports upstream rate limiting with a Retry-After instead of a generic failure', async () => {
+    const h = harness();
+    h.fetcher.mockResolvedValueOnce(new Response(JSON.stringify({ jsonrpc: '2.0', id: 1, error: { code: -32000, message: 'Too Many Requests' } }), { status: 429, headers: { 'Retry-After': '240' } }));
+    const error = await h.client.listTools().catch(value => value);
+    expect(error).toMatchObject({ status: 503, details: { code: 'ASSISTANT_MCP_RATE_LIMIT', retryAfter: 240 } });
+    expect(h.fetcher).toHaveBeenCalledOnce();
+  });
+
+  it('reuses cached read-only schemas without repeating discovery', async () => {
+    const fetcher = vi.fn<typeof fetch>();
+    const controller = new AbortController();
+    const cache = {};
+    fetcher.mockResolvedValueOnce(envelope(1, { protocolVersion: '2024-11-05' }));
+    fetcher.mockResolvedValueOnce(envelope(2, { tools: [catalog, pages] }));
+    expect(await new MaktebRpcClient(controller.signal, fetcher, cache).listTools()).toEqual([catalog, pages]);
+    expect(await new MaktebRpcClient(controller.signal, fetcher, cache).listTools()).toEqual([catalog, pages]);
+    expect(fetcher).toHaveBeenCalledTimes(2);
   });
 
   it('rejects empty discovery rather than invoking an unconstrained model', async () => {

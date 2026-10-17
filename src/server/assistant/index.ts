@@ -5,7 +5,7 @@ import {
 } from '@aws-sdk/client-bedrock-runtime';
 import type { AssistantMessage, AssistantReply } from '../../lib/assistant-types';
 import { HttpError } from '../errors';
-import { MaktebRpcClient, READ_TOOLS, isRecord, validateToolArguments, type MaktebClient, type MaktebTool } from './makteb';
+import { MaktebRpcClient, READ_TOOLS, isRecord, validateToolArguments, type MaktebClient, type MaktebTool, type MaktebToolCache } from './makteb';
 import { SourceCollector } from './sources';
 
 export interface AssistantInput {
@@ -24,6 +24,7 @@ export interface AssistantDependencies {
   timeoutMs?: number;
 }
 
+const mcpToolCache: MaktebToolCache = {};
 const MAX_TOOL_CALLS = 8;
 const MAX_MODEL_CALLS = 5;
 const MAX_TOOL_TEXT = 14_000;
@@ -104,7 +105,7 @@ export function createAssistantRunner(dependencies: AssistantDependencies = {}) 
     let bedrock: BedrockTransport | undefined;
     try {
       signal.throwIfAborted();
-      const mcp = (dependencies.createMcpClient || (value => new MaktebRpcClient(value)))(signal);
+      const mcp = (dependencies.createMcpClient || (value => new MaktebRpcClient(value, fetch, mcpToolCache)))(signal);
       const tools = (await abortable(mcp.listTools(), signal)).filter(tool => READ_TOOLS.has(tool.name));
       if (!tools.length) throw new HttpError(502, 'La bibliothèque Makteb est momentanément indisponible.', { code: 'ASSISTANT_MCP_UNAVAILABLE' });
       const config: BedrockRuntimeClientConfig = {

@@ -1,6 +1,9 @@
 import { HttpError } from '../errors';
 
 export const MAKTEB_ENDPOINT = 'https://api.makteb.org/mcp';
+// api.makteb.org sits behind Cloudflare, which rate-limits (HTTP 429) requests with a missing or
+// blocked User-Agent. Node's fetch sends none, so identify the client explicitly.
+export const MAKTEB_USER_AGENT = 'Atharahom/1.0';
 export const READ_TOOLS = new Set([
   'search_catalog', 'get_book_metadata', 'read_book_pages', 'get_table_of_contents', 'get_author_details',
 ]);
@@ -20,12 +23,17 @@ export interface MaktebClient {
   listTools(): Promise<MaktebTool[]>;
   callTool(name: string, args: Record<string, unknown>): Promise<MaktebResult>;
 }
+/** Optional per-process cache of the discovered read-only schemas (the endpoint is stateless). */
+export interface MaktebToolCache { tools?: MaktebTool[] }
 
 export function isRecord(value: unknown): value is Record<string, unknown> {
   return !!value && typeof value === 'object' && !Array.isArray(value);
 }
 function unavailable(): HttpError {
   return new HttpError(502, 'La bibliothèque Makteb est momentanément indisponible. Réessayez dans quelques instants.', { code: 'ASSISTANT_MCP_UNAVAILABLE' });
+}
+function rateLimited(retryAfter: number): HttpError {
+  return new HttpError(503, 'La bibliothèque Makteb limite temporairement les requêtes. Réessayez dans quelques instants.', { code: 'ASSISTANT_MCP_RATE_LIMIT', retryAfter });
 }
 
 /** Makteb exposes stateless JSON-RPC POST, not an SSE stream. */
@@ -34,7 +42,7 @@ export class MaktebRpcClient implements MaktebClient {
   private sessionId?: string;
   private initialized = false;
 
-  constructor(private readonly signal: AbortSignal, private readonly fetcher: typeof fetch = fetch) {}
+  constructor(private readonly signal: AbortSignal, private readonly fetcher: typeof fetch = fetch, private readonly cache?: MaktebToolCache) {}
 
   private async rpc(method: string, params: Record<string, unknown>): Promise<unknown> {
     const timeout = AbortSignal.timeout(20_000);
@@ -45,15 +53,23 @@ export class MaktebRpcClient implements MaktebClient {
       const response = await this.fetcher(MAKTEB_ENDPOINT, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json', Accept: 'application/json',
+          'Content-Type': 'application/json', Accept: 'application/json', 'User-Agent': MAKTEB_USER_AGENT,
           ...(this.initialized ? { 'MCP-Protocol-Version': '2024-11-05' } : {}),
           ...(this.sessionId ? { 'Mcp-Session-Id': this.sessionId } : {}),
         },
         body: JSON.stringify({ jsonrpc: '2.0', id, method, params }),
         signal, cache: 'no-store', redirect: 'error',
       });
+      if (response.status === 429) {
+        await response.body?.cancel();
+        const header = Number(response.headers.get('retry-after'));
+        const retryAfter = Number.isFinite(header) && header > 0 ? Math.min(Math.round(header), 900) : 60;
+        console.error('[assistant:makteb] upstream rate limited, retry-after', retryAfter, 'seconds');
+        throw rateLimited(retryAfter);
+      }
       if (!response.ok || !response.body || Number(response.headers.get('content-length')) > MAX_RESPONSE_BYTES) {
         await response.body?.cancel();
+        console.error('[assistant:makteb] upstream error status', response.status);
         throw unavailable();
       }
       const reader = response.body.getReader();
@@ -81,6 +97,8 @@ export class MaktebRpcClient implements MaktebClient {
   }
 
   async listTools(): Promise<MaktebTool[]> {
+    // The endpoint is stateless and its read-only schemas change rarely: reuse them across requests.
+    if (this.cache?.tools?.length) { this.initialized = true; return this.cache.tools; }
     if (!this.initialized) {
       const result = await this.rpc('initialize', {
         protocolVersion: '2024-11-05', capabilities: {}, clientInfo: { name: 'athar-atlas', version: '1.0.0' },
@@ -100,6 +118,7 @@ export class MaktebRpcClient implements MaktebClient {
       tools.push({ name: tool.name, description: String(tool.description || tool.name).slice(0, 1200), inputSchema: tool.inputSchema });
     }
     if (!tools.length) throw unavailable();
+    if (this.cache) this.cache.tools = tools;
     return tools;
   }
 

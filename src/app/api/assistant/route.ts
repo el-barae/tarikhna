@@ -36,9 +36,10 @@ export async function POST(request: Request) {
       return json(await runAssistant({ messages: input.messages, context },request.signal));
     } catch (error) {
       if (error instanceof HttpError) {
-        const code = error.details && typeof error.details === 'object' && 'code' in error.details ? error.details.code : undefined;
-        const retryAfter = error.details && typeof error.details === 'object' && 'retryAfter' in error.details && typeof error.details.retryAfter === 'number' ? error.details.retryAfter : 60;
-        return json({ error: error.message, ...(typeof code === 'string' ? { code } : {}) },error.status,error.status === 429 ? { 'Retry-After': String(retryAfter) } : {});
+        const details = error.details && typeof error.details === 'object' ? error.details : {};
+        const code = 'code' in details && typeof details.code === 'string' ? details.code : undefined;
+        const retryAfter = 'retryAfter' in details && typeof details.retryAfter === 'number' ? details.retryAfter : error.status === 429 ? 60 : undefined;
+        return json({ error: error.message, ...(code ? { code } : {}) },error.status,retryAfter !== undefined ? { 'Retry-After': String(retryAfter) } : {});
       }
       throw error;
     } finally {
