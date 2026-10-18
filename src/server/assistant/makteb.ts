@@ -92,6 +92,8 @@ export class MaktebRpcClient implements MaktebClient {
     } catch (error) {
       if (this.signal.aborted) throw this.signal.reason;
       if (error instanceof HttpError) throw error;
+      // Temporary diagnostic: error name only (no response body or credentials).
+      console.error('[assistant:makteb] request failed', method, error instanceof Error ? error.name : typeof error);
       throw unavailable();
     }
   }
