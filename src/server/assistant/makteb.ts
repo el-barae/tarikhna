@@ -84,7 +84,13 @@ export class MaktebRpcClient implements MaktebClient {
           chunks.push(chunk.value);
         }
       } finally { reader.releaseLock(); }
-      const message: unknown = JSON.parse(Buffer.concat(chunks).toString('utf8'));
+      const text = Buffer.concat(chunks).toString('utf8');
+      let message: unknown;
+      try { message = JSON.parse(text); } catch {
+        // Temporary diagnostic: status and media type only, never the body.
+        console.error('[assistant:makteb] non-JSON response', response.status, response.headers.get('content-type') ?? 'none', 'bytes', text.length);
+        throw unavailable();
+      }
       if (!isRecord(message) || message.jsonrpc !== '2.0' || message.id !== id || message.error || !('result' in message)) throw unavailable();
       const sessionId = response.headers.get('mcp-session-id');
       if (sessionId && sessionId.length < 512) this.sessionId = sessionId;
