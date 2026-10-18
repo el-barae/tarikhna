@@ -61,9 +61,6 @@ function safeError(error: unknown, signal: AbortSignal): HttpError {
   if (['ThrottlingException', 'ServiceQuotaExceededException'].includes(name)) {
     return new HttpError(503, 'Amazon Bedrock a atteint sa limite de requêtes. Réessayez dans quelques instants.', { code: 'ASSISTANT_UNAVAILABLE' });
   }
-  // Temporary diagnostic: name and HTTP status only, never credentials or request content.
-  const status = (error as { $metadata?: { httpStatusCode?: number } } | null)?.$metadata?.httpStatusCode;
-  console.error('[assistant] unclassified failure', name || typeof error, 'http status', status ?? 'none');
   return new HttpError(502, 'L’assistant est momentanément indisponible. Réessayez dans quelques instants.', { code: 'ASSISTANT_UNAVAILABLE' });
 }
 /** Credential providers can resolve outside the SDK request lifecycle; enforce the overall deadline too. */
@@ -194,6 +191,9 @@ export function createAssistantRunner(dependencies: AssistantDependencies = {}) 
       finalText = finalText.replace(/\[(S\d+)\]/g, (match, id: string) => knownIds.has(id) ? match : '');
       return { message: finalText, sources: sources.sources, ...(warnings.size ? { warnings: [...warnings] } : {}) };
     } catch (error) {
+      // Temporary diagnostic: every failure path logs its name and code (no secrets, no content).
+      const code = error instanceof HttpError && isRecord(error.details) ? error.details.code : undefined;
+      console.error('[assistant] request failed', error instanceof Error ? error.name : typeof error, code ?? '', signal.aborted ? 'aborted' : '');
       throw safeError(error, signal);
     } finally {
       clearTimeout(timeout);
