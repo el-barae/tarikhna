@@ -87,10 +87,10 @@ export function assistantAtlasContext(dataset: Dataset, context: AssistantReques
 }
 
 /** Uses the existing transactional store, so rate limits survive server restarts. */
-export function reserveAssistantRequest(store: Store, userId: string, now = Date.now()): void {
+export function reserveAssistantRequest(store: Store, userId: string, now = Date.now(), limit = 20): void {
   const key = `assistant:${userId}`;
   const previous = store.loginAttempts[key];
   const current = previous && previous.expiresAt > now ? previous : { count: 0, expiresAt: now + 15 * 60_000 };
-  if (current.count >= 20) throw new HttpError(429, 'Limite de questions atteinte. Réessayez dans 15 minutes.', { code: 'ASSISTANT_RATE_LIMIT', retryAfter: Math.max(1,Math.ceil((current.expiresAt-now)/1000)) });
+  if (current.count >= limit) throw new HttpError(429, 'Limite de questions atteinte. Réessayez dans 15 minutes.', { code: 'ASSISTANT_RATE_LIMIT', retryAfter: Math.max(1,Math.ceil((current.expiresAt-now)/1000)) });
   store.loginAttempts[key] = { count: current.count + 1, expiresAt: current.expiresAt };
 }

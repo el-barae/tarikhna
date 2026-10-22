@@ -19,14 +19,16 @@ let dataset: Dataset;
 const token = 'a'.repeat(64);
 const cookie = `history_session=${token}`;
 const body = { messages: [{ role: 'user', content: 'Quelles sources sur Bagdad ?' }], context: { year: 800, locale: 'fr', selection: { kind: 'state', id: 'abbasid-caliphate' } } };
-function request(payload: unknown = body, options: {cookie?: string; origin?: string; length?: string} = {}) {
-  return new Request('http://localhost:3000/api/assistant', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: options.origin || 'http://localhost:3000', Cookie: options.cookie ?? cookie, ...(options.length ? {'Content-Length':options.length} : {}) }, body: JSON.stringify(payload) });
+function request(payload: unknown = body, options: {cookie?: string; origin?: string; length?: string; ip?: string} = {}) {
+  return new Request('http://localhost:3000/api/assistant', { method: 'POST', headers: { 'Content-Type': 'application/json', Origin: options.origin || 'http://localhost:3000', Cookie: options.cookie ?? cookie, ...(options.length ? {'Content-Length':options.length} : {}), ...(options.ip ? {'X-Forwarded-For':options.ip} : {}) }, body: JSON.stringify(payload) });
 }
 beforeAll(async () => {
   directory = await mkdtemp(path.join(os.tmpdir(),'athar-assistant-'));
   vi.stubEnv('HISTORY_STORE_PATH',path.join(directory,'.store.json'));
   vi.stubEnv('DATABASE_URL','');
   vi.stubEnv('APP_ORIGIN','http://localhost:3000');
+  vi.stubEnv('ASSISTANT_REQUIRE_LOGIN','true');
+  vi.stubEnv('TRUST_PROXY','true');
   await withStore(store => {
     store.users.push({id:'assistant-visitor',name:'Visitor',email:'visitor@example.org',role:'visitor',disabled:false,passwordHash:'unused',createdAt:new Date().toISOString()});
     store.sessions.push({id:createHash('sha256').update(token).digest('hex'),userId:'assistant-visitor',expiresAt:Date.now()+60_000});
@@ -36,6 +38,7 @@ beforeAll(async () => {
 beforeEach(async () => {
   engine.configured = true;
   engine.run.mockReset().mockResolvedValue({message:'Une réponse sourcée [S1].',sources:[{id:'S1',title:'Un ouvrage',url:'https://makteb.org/book/example'}]});
+  vi.stubEnv('ASSISTANT_REQUIRE_LOGIN','true');
   await withStore(store => { delete store.loginAttempts['assistant:assistant-visitor']; });
 });
 afterAll(async () => {vi.unstubAllEnvs();await rm(directory,{recursive:true,force:true});});
@@ -69,9 +72,9 @@ describe('assistant request validation', () => {
 });
 
 describe('assistant API', () => {
-  it('reports only configuration readiness and authentication', async () => {
+  it('reports configuration readiness, authentication and assistant login policy', async () => {
     const response = await GET(new Request('http://localhost:3000/api/assistant',{headers:{Cookie:cookie}}));
-    expect(await response.json()).toEqual({configured:true,authenticated:true});
+    expect(await response.json()).toEqual({configured:true,authenticated:true,authenticationRequired:true});
     expect(response.headers.get('cache-control')).toBe('no-store');
   });
   it('requires a live account, even when Bedrock is not configured', async () => {
@@ -99,6 +102,22 @@ describe('assistant API', () => {
     expect(JSON.parse(call[0].context).selected.id).toBe('abbasid-caliphate');
     expect(call[1]).toBeInstanceOf(AbortSignal);
     expect((await response.json()).sources).toHaveLength(1);
+  });
+  it('allows public assistant access without disabling app authentication and limits by IP', async () => {
+    vi.stubEnv('ASSISTANT_REQUIRE_LOGIN','false');
+    const ip='203.0.113.44';
+    const status=await GET(new Request('http://localhost:3000/api/assistant'));
+    expect(await status.json()).toEqual({configured:true,authenticated:false,authenticationRequired:false});
+    for(let index=0;index<5;index++) expect((await POST(request(body,{cookie:'',ip}))).status).toBe(200);
+    const limited=await POST(request(body,{cookie:'',ip}));
+    expect(limited.status).toBe(429);
+    expect((await limited.json()).code).toBe('ASSISTANT_RATE_LIMIT');
+    expect(engine.run).toHaveBeenCalledTimes(5);
+    const anonymousId=`anonymous-${createHash('sha256').update(ip).digest('hex')}`;
+    await withStore(store => {
+      expect(store.loginAttempts[`assistant:${anonymousId}`].count).toBe(5);
+      expect(JSON.stringify(store.loginAttempts)).not.toContain(ip);
+    });
   });
   it('releases the storage lock during inference and rejects concurrent requests per account', async () => {
     let release!: (value:unknown)=>void;

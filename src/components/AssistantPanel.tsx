@@ -141,7 +141,8 @@ export default function AssistantPanel({open, locale, year, selection, selection
         const body = await response.json();
         if (controller.signal.aborted) return;
         if (!response.ok) { setAvailability(response.status === 401 ? 'login' : 'unavailable'); return; }
-        setAvailability(!body.configured ? 'unconfigured' : !signedIn || !body.authenticated ? 'login' : 'ready');
+        const loginRequired = body.authenticationRequired !== false;
+        setAvailability(!body.configured ? 'unconfigured' : loginRequired && (!signedIn || !body.authenticated) ? 'login' : 'ready');
       })
       .catch(() => { if (!controller.signal.aborted) setAvailability('unavailable'); });
     return () => controller.abort();

@@ -49,6 +49,29 @@ test('assistant returns after signing in with a visitor account', async ({page})
   await page.screenshot({path: '/tmp/athar-assistant-desktop-fr.png', fullPage: true});
 });
 
+test('assistant can be used without an account when public access is enabled', async ({page}) => {
+  await mockAccount(page, false);
+  await page.route('**/api/assistant', async route => {
+    if (route.request().method() === 'GET') {
+      await route.fulfill({json: {configured: true, authenticated: false, authenticationRequired: false}});
+      return;
+    }
+    await route.fulfill({json: {
+      message: 'Voici un aperçu historique prudent.',
+      sources: [],
+      warnings: ['MCP_DISABLED'],
+    }});
+  });
+  await page.goto('/');
+  const dialog = await openAssistant(page);
+  const question = dialog.getByRole('textbox', {name: 'Votre question'});
+  await expect(question).toBeVisible();
+  await question.fill('Que se passait-il à Bagdad vers 800 ?');
+  await dialog.getByRole('button', {name: 'Envoyer', exact: true}).click();
+  await expect(dialog.locator('.assistant-message-assistant')).toContainText('aperçu historique prudent');
+  await expect(dialog.locator('.assistant-warnings')).toContainText('Mode sans recherche externe');
+});
+
 test('assistant sends map context, retains references across close and clears on logout', async ({page}) => {
   await mockAccount(page);
   const requests: Array<{messages: Array<{role: string; content: string}>; context: unknown}> = [];

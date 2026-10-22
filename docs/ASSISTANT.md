@@ -68,10 +68,23 @@ ASSISTANT_USE_MCP=false
 Sans cette variable (ou avec toute autre valeur que `false`), l’application essaie Makteb et
 bascule automatiquement vers Bedrock seul si la recherche échoue.
 
+Par défaut, une session visiteur est requise pour utiliser l’assistant. Pour ouvrir **uniquement
+l’assistant** au public sans désactiver les comptes et protections du reste de l’application,
+définir côté serveur :
+
+```dotenv
+ASSISTANT_REQUIRE_LOGIN=false
+```
+
+Les requêtes anonymes sont limitées à 5 par adresse IP sur 15 minutes ; les comptes connectés
+conservent leur quota de 20. Vercel fournit l’adresse via son proxy. Pour un autre hébergeur
+derrière un proxy inverse, configurer `TRUST_PROXY=true`. L’accès public peut entraîner des coûts
+Bedrock : configurez aussi des alertes et limites de dépense côté AWS.
+
 ## Utilisation
 
 1. Configurer Bedrock et redémarrer `npm run dev`.
-2. Se connecter avec un compte existant de l’atlas (visiteur, éditeur ou administrateur).
+2. Se connecter avec un compte existant de l’atlas, sauf si `ASSISTANT_REQUIRE_LOGIN=false`.
 3. Choisir une année et éventuellement un État, une ville ou un événement.
 4. Ouvrir **Assistant**, puis poser une question.
 5. Consulter les ouvrages et passages dans les références sous la réponse.
