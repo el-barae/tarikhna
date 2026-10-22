@@ -5,12 +5,17 @@ L’année et l’entité sélectionnées servent de contexte. Le serveur utilis
 des données, ses capitales datées et ses indications de certitude. Les conversations restent
 en mémoire dans l’interface et sont effacées à la déconnexion ou au rechargement.
 
-L’assistant utilise Claude via Amazon Bedrock et les outils de lecture de Makteb :
-recherche de livres, métadonnées, extraits, tables des matières et auteurs.
+L’assistant utilise Claude via Amazon Bedrock. Quand Makteb est disponible, il peut aussi
+rechercher des livres, métadonnées, extraits, tables des matières et informations sur les auteurs.
 Les références affichées proviennent des résultats effectivement reçus. Une notice de
 catalogue confirme la présence d’un ouvrage ; elle ne vérifie pas à elle seule un fait
 historique. L’assistant peut se tromper : consulter les passages indiqués avant de modifier
 les données.
+
+Makteb est facultatif : si son service échoue, l’assistant continue avec Bedrock sans outil
+externe. Il répond alors à partir des connaissances générales du modèle et du contexte de
+l’atlas, sans inventer de références, et affiche un avertissement indiquant que ces informations
+n’ont pas été vérifiées par des sources externes.
 
 ## Configuration
 
@@ -51,7 +56,17 @@ L’application n’utilise pas l’API de streaming.
 
 L’adresse MCP est fixe : `https://api.makteb.org/mcp`. Les appels publics testés ne demandaient
 pas de clé Makteb. Le client découvre les schémas des outils à chaque conversation serveur :
-les paramètres réels peuvent différer des exemples de documentation.
+les paramètres réels peuvent différer des exemples de documentation. L’accès MCP n’est pas
+nécessaire au fonctionnement de base de l’assistant.
+
+Pour désactiver entièrement Makteb/MCP et utiliser Bedrock seul, définir côté serveur :
+
+```dotenv
+ASSISTANT_USE_MCP=false
+```
+
+Sans cette variable (ou avec toute autre valeur que `false`), l’application essaie Makteb et
+bascule automatiquement vers Bedrock seul si la recherche échoue.
 
 ## Utilisation
 
@@ -72,15 +87,19 @@ Il vérifie la session, l’origine, la taille et l’ordre des messages, puis c
 historique publié. Les appels réseau ont lieu après la libération du verrou du stockage.
 
 Le moteur utilise **Converse** avec les schémas MCP et exécute uniquement cinq outils de
-lecture autorisés. Les documents retournés sont traités comme des sources externes.
-Aucun outil ne modifie le dataset, ne publie une version ou n’envoie des identifiants AWS à Makteb.
+lecture autorisés lorsque Makteb est disponible. Si la découverte des outils ou un appel échoue,
+il bascule vers une requête Bedrock sans outils MCP. La réponse de secours peut utiliser les
+connaissances générales du modèle, mais doit signaler l’absence de vérification externe et ne
+peut pas fabriquer de références. Les documents retournés par Makteb sont traités comme des
+sources externes. Aucun outil ne modifie le dataset, ne publie une version ou n’envoie des
+identifiants AWS à Makteb.
 
 Limites actuelles :
 
 - 4 000 caractères par question ; historique transmis limité à 24 000 caractères.
 - 20 requêtes par compte sur 15 minutes, enregistrées dans le stockage existant.
 - Une requête simultanée par compte et processus serveur.
-- Jusqu’à cinq appels modèle et huit appels outils par réponse ; délai global de 90 secondes.
+- Jusqu’à cinq appels modèle et huit appels outils par réponse en mode recherche ; délai global de 90 secondes.
 - Extraits transmis au modèle limités à 14 000 caractères par outil.
 
 Les questions et le contexte publié sont transmis à Amazon Bedrock. Makteb reçoit les arguments
@@ -109,7 +128,7 @@ erreurs et l’affichage mobile avec des réponses simulées.
 - **Accès Bedrock refusé** : vérifier les identifiants, leur expiration, les permissions IAM
   et l’accès Anthropic du compte.
 - **Modèle indisponible** : vérifier la région et l’identifiant du profil d’inférence.
-- **Recherche indisponible** : vérifier la connexion sortante HTTPS vers Makteb.
+- **Avertissement Makteb indisponible** : l’assistant répond quand même via Bedrock, mais sans vérification externe ni références Makteb. Vérifier la connexion sortante HTTPS si ces références sont souhaitées.
 - **Limite atteinte** : attendre la fin de la fenêtre de 15 minutes.
 - **Réponse interrompue** : utiliser une question plus précise ou réessayer.
 

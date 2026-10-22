@@ -61,7 +61,7 @@ test('assistant sends map context, retains references across close and clears on
         {id: 'M1', title: 'Chronique historique', url: 'https://makteb.org/book/example', locator: 'Volume 2, page 45'},
         {id: 'M2', title: 'Référence sans lien sûr', url: 'javascript:alert(1)', locator: 'Page 12'},
       ],
-      warnings: ['TOOL_FAILED'],
+      warnings: ['TOOL_FAILED', 'MCP_UNAVAILABLE'],
     }});
   });
   await page.route('**/api/auth/logout', route => route.fulfill({json: {ok: true}}));
@@ -79,6 +79,7 @@ test('assistant sends map context, retains references across close and clears on
   await expect(dialog.locator('.assistant-sources a')).toHaveAttribute('href', 'https://makteb.org/book/example');
   await expect(dialog.locator('.assistant-sources')).toContainText('Volume 2, page 45');
   await expect(dialog.locator('.assistant-warnings')).toContainText('Une partie de la recherche documentaire n’a pas abouti.');
+  await expect(dialog.locator('.assistant-warnings')).toContainText('La recherche Makteb est indisponible.');
   await expect(dialog.locator('img')).toHaveCount(0);
   await expect(dialog.locator('.assistant-reply-text')).toContainText('<img src=x onerror=alert(1)>');
   await page.keyboard.press('Escape');

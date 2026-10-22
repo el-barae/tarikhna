@@ -25,6 +25,58 @@ function harness(overrides: AssistantDependencies = {}) {
 }
 
 describe('assistant research engine', () => {
+  it('falls back to Bedrock without MCP tools when source discovery is unavailable', async () => {
+    const h = harness();
+    h.mcp.listTools.mockRejectedValue(new TypeError('Makteb is unreachable'));
+    h.bedrock.send.mockResolvedValue(response([{ text: 'Bagdad fut un grand centre politique et intellectuel. Cette réponse repose sur mes connaissances générales, sans vérification externe. [S1]' }]));
+
+    const result = await h.run(input);
+    const request = h.bedrock.send.mock.calls[0][0];
+    const system = request.system?.map(part => part.text).join('\n') || '';
+
+    expect(h.mcp.callTool).not.toHaveBeenCalled();
+    expect(h.bedrock.send).toHaveBeenCalledOnce();
+    expect(request.toolConfig).toBeUndefined();
+    expect(system).toContain('External source lookup is not being used');
+    expect(system).not.toContain('Use Makteb before making substantive historical claims');
+    expect(result.message).not.toContain('[S1]');
+    expect(result.sources).toEqual([]);
+    expect(result.warnings).toEqual(['MCP_UNAVAILABLE']);
+  });
+
+  it('switches to a no-MCP final answer if a library tool call fails mid-research', async () => {
+    const h = harness();
+    h.bedrock.send
+      .mockResolvedValueOnce(response([tool('search_catalog', 'lookup-failed', { query: 'Bagdad' })], 'tool_use'))
+      .mockResolvedValueOnce(response([tool('submit_answer', 'fallback-final', { answer: 'Bagdad fut un centre important. Cette réponse n’a pas été vérifiée par une source externe. [S1]' })], 'tool_use'));
+    h.mcp.callTool.mockRejectedValue(new TypeError('Makteb is unreachable'));
+
+    const result = await h.run(input);
+    const fallbackRequest = h.bedrock.send.mock.calls[1][0];
+
+    expect(fallbackRequest.toolConfig).toMatchObject({ tools: [{ toolSpec: { name: 'submit_answer' } }] });
+    expect(fallbackRequest.system?.map(part => part.text).join('\n')).toContain('External source lookup is not being used');
+    expect(result.message).toContain('Cette réponse n’a pas été vérifiée');
+    expect(result.message).not.toContain('[S1]');
+    expect(result.sources).toEqual([]);
+    expect(result.warnings).toEqual(expect.arrayContaining(['MCP_UNAVAILABLE', 'TOOL_FAILED']));
+  });
+
+  it('can disable MCP completely and answer with Bedrock only', async () => {
+    const h = harness({ env: { ...env, ASSISTANT_USE_MCP: 'false' } });
+    h.bedrock.send.mockResolvedValue(response([{ text: 'Voici un aperçu prudent. [S1]' }]));
+
+    const result = await h.run(input);
+    const request = h.bedrock.send.mock.calls[0][0];
+
+    expect(h.createMcpClient).not.toHaveBeenCalled();
+    expect(request.toolConfig).toBeUndefined();
+    expect(request.system?.map(part => part.text).join('\n')).toContain('External source lookup is not being used');
+    expect(result.message).not.toContain('[S1]');
+    expect(result.sources).toEqual([]);
+    expect(result.warnings).toEqual(['MCP_DISABLED']);
+  });
+
   it('uses discovered schemas and pairs every tool result with its model request ID', async () => {
     const h = harness();
     const requests: ConverseCommandInput[] = [];

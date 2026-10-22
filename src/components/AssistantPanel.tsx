@@ -107,7 +107,7 @@ export default function AssistantPanel({open, locale, year, selection, selection
   onLogin: () => void;
 }) {
   const text = assistantCopy[locale];
-  const warningLabels: Record<string, string> = {SOURCES_UNAVAILABLE: text.sourcesUnavailable, TOOL_FAILED: text.toolFailed, RESEARCH_LIMIT: text.researchLimit, ANSWER_TRUNCATED: text.answerTruncated};
+  const warningLabels: Record<string, string> = {MCP_DISABLED: text.mcpDisabled, MCP_UNAVAILABLE: text.mcpUnavailable, SOURCES_UNAVAILABLE: text.sourcesUnavailable, TOOL_FAILED: text.toolFailed, RESEARCH_LIMIT: text.researchLimit, ANSWER_TRUNCATED: text.answerTruncated};
   const [messages, setMessages] = useState<Message[]>([]);
   const [draft, setDraft] = useState('');
   const [availability, setAvailability] = useState<Availability>('checking');
