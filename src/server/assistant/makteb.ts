@@ -115,7 +115,8 @@ export class MaktebRpcClient implements MaktebClient {
         }
         if (!response.ok || !response.body || Number(response.headers.get('content-length')) > MAX_RESPONSE_BYTES) {
           await response.body?.cancel();
-          console.error('[assistant:makteb] upstream error status', response.status);
+          // Temporary diagnostic: status, media type and target host only, never the body.
+          console.error('[assistant:makteb] upstream error status', response.status, 'from', new URL(endpoint).host, response.headers.get('content-type') ?? 'no content type');
           throw unavailable();
         }
         const reader = response.body.getReader();
