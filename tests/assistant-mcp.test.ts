@@ -117,6 +117,41 @@ describe('Makteb JSON-RPC transport', () => {
   });
 });
 
+describe('Makteb production egress', () => {
+  it('sends calls to MAKTEB_MCP_URL when set to a valid https URL', async () => {
+    vi.stubEnv('MAKTEB_MCP_URL', 'https://proxy.example.org/mcp');
+    try {
+      const h = harness();
+      h.fetcher.mockResolvedValueOnce(envelope(1, { protocolVersion: '2024-11-05' }));
+      h.fetcher.mockResolvedValueOnce(envelope(2, { tools: [catalog] }));
+      expect(await h.client.listTools()).toEqual([catalog]);
+      expect(h.fetcher.mock.calls.every(([url]) => url === 'https://proxy.example.org/mcp')).toBe(true);
+    } finally { vi.unstubAllEnvs(); }
+  });
+
+  it('falls back to the default endpoint when the override is not an https URL', async () => {
+    vi.stubEnv('MAKTEB_MCP_URL', 'http://insecure.example.org/mcp');
+    try {
+      const h = harness();
+      h.fetcher.mockResolvedValueOnce(envelope(1, { protocolVersion: '2024-11-05' }));
+      h.fetcher.mockResolvedValueOnce(envelope(2, { tools: [catalog] }));
+      expect(await h.client.listTools()).toEqual([catalog]);
+      expect(h.fetcher.mock.calls.every(([url]) => url === MAKTEB_ENDPOINT)).toBe(true);
+    } finally { vi.unstubAllEnvs(); }
+  });
+
+  it('waits out a short upstream rate limit once and retries with a fresh request id', async () => {
+    const h = harness();
+    h.fetcher.mockResolvedValueOnce(new Response(JSON.stringify({ jsonrpc: '2.0', id: 1, error: {} }), { status: 429, headers: { 'Retry-After': '1' } }));
+    h.fetcher.mockResolvedValueOnce(envelope(2, { protocolVersion: '2024-11-05' }));
+    h.fetcher.mockResolvedValueOnce(envelope(3, { tools: [catalog] }));
+    expect(await h.client.listTools()).toEqual([catalog]);
+    const bodies = h.fetcher.mock.calls.map(([, options]) => JSON.parse(options!.body as string));
+    expect(bodies.map(body => body.id)).toEqual([1, 2, 3]);
+    expect(bodies[1].method).toBe('initialize');
+  });
+});
+
 describe('Makteb arguments', () => {
   it('limits catalog results and accepts the actual page schema', () => {
     expect(validateToolArguments(catalog, { query: 'Tabari', limit: 30 })).toEqual({ query: 'Tabari', limit: 8 });

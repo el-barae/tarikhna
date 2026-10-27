@@ -120,7 +120,7 @@ export function createAssistantRunner(dependencies: AssistantDependencies = {}) 
         warnings.add('MCP_DISABLED');
       } else {
         try {
-          mcp = (dependencies.createMcpClient || (value => new MaktebRpcClient(value, fetch, mcpToolCache)))(signal);
+          mcp = (dependencies.createMcpClient || (value => new MaktebRpcClient(value, undefined, mcpToolCache)))(signal);
           tools = (await abortable(mcp.listTools(), signal)).filter(tool => READ_TOOLS.has(tool.name));
           if (!tools.length) throw new HttpError(502, 'Makteb returned no supported read tools.', { code: 'ASSISTANT_MCP_UNAVAILABLE' });
           mcpAvailable = true;

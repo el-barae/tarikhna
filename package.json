@@ -37,7 +37,8 @@
     "pg": "^8.16.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
-    "tailwindcss": "^4.1.0"
+    "tailwindcss": "^4.1.0",
+    "undici": "^8.12.3"
   },
   "devDependencies": {
     "@playwright/test": "^1.55.0",

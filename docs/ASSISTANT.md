@@ -54,10 +54,11 @@ Ne pas utiliser de préfixe `NEXT_PUBLIC_` pour ces variables. Elles restent cô
 L’accès au modèle doit autoriser l’inférence Bedrock (`bedrock:InvokeModel` pour Converse).
 L’application n’utilise pas l’API de streaming.
 
-L’adresse MCP est fixe : `https://api.makteb.org/mcp`. Les appels publics testés ne demandaient
+Par défaut, l’adresse MCP est `https://api.makteb.org/mcp`. Les appels publics testés ne demandaient
 pas de clé Makteb. Le client découvre les schémas des outils à chaque conversation serveur :
 les paramètres réels peuvent différer des exemples de documentation. L’accès MCP n’est pas
-nécessaire au fonctionnement de base de l’assistant.
+nécessaire au fonctionnement de base de l’assistant. En production, l’adresse et le réseau
+sortant de ces appels peuvent être redirigés (voir « Contournement du blocage » ci-dessous).
 
 Pour désactiver entièrement Makteb/MCP et utiliser Bedrock seul, définir côté serveur :
 
@@ -67,6 +68,41 @@ ASSISTANT_USE_MCP=false
 
 Sans cette variable (ou avec toute autre valeur que `false`), l’application essaie Makteb et
 bascule automatiquement vers Bedrock seul si la recherche échoue.
+
+### Contournement du blocage du réseau sortant en production
+
+L’API Makteb est protégée par un CDN qui bloque ou limite les adresses IP sortantes de
+certains hébergeurs (Vercel, AWS) alors que les réseaux résidentiels passent. L’avertissement
+« Makteb indisponible » peut donc n’apparaître qu’en production. Deux variables serveur
+permettent de contourner ce blocage sans modifier le code :
+
+- `MAKTEB_MCP_URL` : remplace l’adresse MCP par défaut (obligatoirement une URL `https://`),
+  par exemple celle d’un reverse-proxy Cloudflare Worker que vous contrôlez :
+
+  ```js
+  export default {
+    fetch: request => fetch('https://api.makteb.org' + new URL(request.url).pathname, request),
+  };
+  ```
+
+  ```dotenv
+  MAKTEB_MCP_URL=https://makteb-proxy.votre-compte.workers.dev/mcp
+  ```
+
+  Gratuit et rapide à déployer, mais le trafic sort toujours du réseau Cloudflare : si Makteb
+  bloque aussi ces requêtes, utiliser plutôt le proxy ci-dessous.
+
+- `MAKTEB_PROXY_URL` : fait passer uniquement les appels Makteb par un proxy HTTP(S)
+  (agent undici), pas les autres appels sortants comme Bedrock. Un petit VPS avec un proxy
+  (tinyproxy, squid) suffit :
+
+  ```dotenv
+  MAKTEB_PROXY_URL=http://utilisateur:mot-de-passe@proxy.exemple.org:3128
+  ```
+
+Après déploiement, vérifier les journaux de fonctions Vercel : les lignes `[assistant:makteb]`
+avec un statut 403 ou une réponse non JSON signalent un blocage persistant ; un statut 200
+confirme que la recherche externe fonctionne de nouveau.
 
 Par défaut, une session visiteur est requise pour utiliser l’assistant. Pour ouvrir **uniquement
 l’assistant** au public sans désactiver les comptes et protections du reste de l’application,
@@ -114,6 +150,8 @@ Limites actuelles :
 - Une requête simultanée par compte et processus serveur.
 - Jusqu’à cinq appels modèle et huit appels outils par réponse en mode recherche ; délai global de 90 secondes.
 - Extraits transmis au modèle limités à 14 000 caractères par outil.
+- Un 429 de Makteb dont le `Retry-After` est inférieur ou égal à 8 secondes est attendu une
+  seule fois, dans le budget de 20 secondes de l’appel ; au-delà, l’échec est immédiat.
 
 Les questions et le contexte publié sont transmis à Amazon Bedrock. Makteb reçoit les arguments
 de recherche choisis par le modèle. Les conversations ne sont pas sauvegardées dans la base
@@ -141,7 +179,7 @@ erreurs et l’affichage mobile avec des réponses simulées.
 - **Accès Bedrock refusé** : vérifier les identifiants, leur expiration, les permissions IAM
   et l’accès Anthropic du compte.
 - **Modèle indisponible** : vérifier la région et l’identifiant du profil d’inférence.
-- **Avertissement Makteb indisponible** : l’assistant répond quand même via Bedrock, mais sans vérification externe ni références Makteb. Vérifier la connexion sortante HTTPS si ces références sont souhaitées.
+- **Avertissement Makteb indisponible** : l’assistant répond quand même via Bedrock, mais sans vérification externe ni références Makteb. Vérifier la connexion sortante HTTPS et les journaux `[assistant:makteb]` : statut 403 ou réponse non JSON = blocage CDN de l’hébergeur (voir « Contournement du blocage » dans la configuration).
 - **Limite atteinte** : attendre la fin de la fenêtre de 15 minutes.
 - **Réponse interrompue** : utiliser une question plus précise ou réessayer.
 
