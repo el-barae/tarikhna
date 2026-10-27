@@ -89,8 +89,11 @@ permettent de contourner ce blocage sans modifier le code :
   MAKTEB_MCP_URL=https://makteb-proxy.votre-compte.workers.dev/mcp
   ```
 
-  Gratuit et rapide à déployer, mais le trafic sort toujours du réseau Cloudflare : si Makteb
-  bloque aussi ces requêtes, utiliser plutôt le proxy ci-dessous.
+  Attention : quand un Worker appelle un site protégé par Cloudflare (comme api.makteb.org),
+  Cloudflare transmet l’adresse IP du client d’origine (`CF-Connecting-IP`) au site appelé.
+  Ce contournement ne change donc pas l’IP vue par Makteb : il ne sert que si l’appelant est
+  déjà accepté (réseau résidentiel). Pour un hébergeur en centre de données, utiliser le
+  proxy ci-dessous.
 
 - `MAKTEB_PROXY_URL` : fait passer uniquement les appels Makteb par un proxy HTTP(S)
   (agent undici), pas les autres appels sortants comme Bedrock. Un petit VPS avec un proxy
